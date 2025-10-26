@@ -1,6 +1,7 @@
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import Provider from "@/provider";
+import FixedUI from "@/components/ui/fixed.ui/FixedUI";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -16,7 +17,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${outfit.variable} antialiased`}>
-        <Provider>{children}</Provider>
+        <Provider>
+          <FixedUI>{children}</FixedUI>
+        </Provider>
       </body>
     </html>
   );
