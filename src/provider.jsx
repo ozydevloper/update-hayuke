@@ -4,7 +4,7 @@ const Provider = ({ children }) => {
   return (
     <>
       <Theme
-        appearance="light"
+        appearance="white"
         accentColor="blue"
         grayColor="gray"
         radius="large"
