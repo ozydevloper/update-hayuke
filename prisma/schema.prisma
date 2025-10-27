@@ -13,3 +13,69 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id            String   @unique @default(uuid())
+  email         String   @unique
+  name          String
+  role          Role     @default(USER)
+  dibuatTanggal DateTime @default(now())
+}
+
+model Agenda {
+  id            String    @unique @default(uuid())
+  poster        String[]
+  judul         String?
+  deskripsi     String?
+  tanggal       DateTime?
+  waktu         String?
+  lokasi        String?
+  alamat        String?
+  url_lokasi    String?
+  pembicara     String[]
+  penyelenggara String[]
+  biaya         String?
+  pelaksanaan   String[]  @default(["offline", "-", "-"])
+  kategori      Kategori? @relation(fields: [kategoriId], references: [id])
+  kategoriId    String?
+  topik         Topik?    @relation(fields: [topikId], references: [id])
+  topikId       String?
+  kota          Kota?     @relation(fields: [kotaId], references: [id])
+  kotaId        String?
+  kalangan      Kalangan? @relation(fields: [kalanganId], references: [id])
+  kalanganId    String?
+  dibuatTanggal DateTime  @default(now())
+}
+
+model Kategori {
+  id            String   @unique @default(uuid())
+  name          String   @unique
+  daftarAgenda  Agenda[]
+  dibuatTanggal DateTime @default(now())
+}
+
+model Topik {
+  id            String   @unique @default(uuid())
+  name          String   @unique
+  daftarAgenda  Agenda[]
+  dibuatTanggal DateTime @default(now())
+}
+
+model Kota {
+  id            String   @unique @default(uuid())
+  name          String   @unique
+  daftarAgenda  Agenda[]
+  dibuatTanggal DateTime @default(now())
+}
+
+model Kalangan {
+  id            String   @unique @default(uuid())
+  name          String   @unique
+  daftarAgenda  Agenda[]
+  dibuatTanggal DateTime @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+}
