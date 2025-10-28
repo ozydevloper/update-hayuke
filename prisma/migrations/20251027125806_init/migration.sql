@@ -1,9 +1,14 @@
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
 
--- AlterTable
-ALTER TABLE "User" ADD COLUMN     "dibuatTanggal" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN     "role" "Role" NOT NULL DEFAULT 'USER';
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "role" "Role" NOT NULL DEFAULT 'USER',
+    "dibuatTanggal" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
 -- CreateTable
 CREATE TABLE "Agenda" (
@@ -13,9 +18,6 @@ CREATE TABLE "Agenda" (
     "deskripsi" TEXT,
     "tanggal" TIMESTAMP(3),
     "waktu" TEXT,
-    "lokasi" TEXT,
-    "alamat" TEXT,
-    "url_lokasi" TEXT,
     "pembicara" TEXT[],
     "penyelenggara" TEXT[],
     "biaya" TEXT,
@@ -54,6 +56,12 @@ CREATE TABLE "Kalangan" (
     "name" TEXT NOT NULL,
     "dibuatTanggal" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_id_key" ON "User"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Agenda_id_key" ON "Agenda"("id");

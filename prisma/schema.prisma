@@ -29,12 +29,8 @@ model Agenda {
   deskripsi     String?
   tanggal       DateTime?
   waktu         String?
-  lokasi        String?
-  alamat        String?
-  url_lokasi    String?
   pembicara     String[]
   penyelenggara String[]
-  biaya         String?
   pelaksanaan   String[]  @default(["offline", "-", "-"])
   kategori      Kategori? @relation(fields: [kategoriId], references: [id])
   kategoriId    String?
@@ -44,6 +40,8 @@ model Agenda {
   kotaId        String?
   kalangan      Kalangan? @relation(fields: [kalanganId], references: [id])
   kalanganId    String?
+  biaya         Biaya?    @relation(fields: [biayaId], references: [id])
+  biayaId       String?
   dibuatTanggal DateTime  @default(now())
 }
 
@@ -69,6 +67,13 @@ model Kota {
 }
 
 model Kalangan {
+  id            String   @unique @default(uuid())
+  name          String   @unique
+  daftarAgenda  Agenda[]
+  dibuatTanggal DateTime @default(now())
+}
+
+model Biaya {
   id            String   @unique @default(uuid())
   name          String   @unique
   daftarAgenda  Agenda[]
