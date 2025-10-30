@@ -94,12 +94,12 @@ export const AgendaScalarFieldEnum = {
   waktu: 'waktu',
   pembicara: 'pembicara',
   penyelenggara: 'penyelenggara',
-  pelaksanaan: 'pelaksanaan',
   kategoriId: 'kategoriId',
   topikId: 'topikId',
   kotaId: 'kotaId',
   kalanganId: 'kalanganId',
   biayaId: 'biayaId',
+  pelaksanaan: 'pelaksanaan',
   dibuatTanggal: 'dibuatTanggal'
 } as const
 

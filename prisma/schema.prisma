@@ -18,7 +18,7 @@ model User {
 }
 
 model Agenda {
-  id            String       @unique @default(uuid())
+  id            String    @unique @default(uuid())
   poster        String[]
   judul         String?
   deskripsi     String?
@@ -26,19 +26,18 @@ model Agenda {
   waktu         String?
   pembicara     String[]
   penyelenggara String[]
-  kategori      Kategori?    @relation(fields: [kategoriId], references: [id])
+  kategori      Kategori? @relation(fields: [kategoriId], references: [id])
   kategoriId    String?
-  topik         Topik?       @relation(fields: [topikId], references: [id])
+  topik         Topik?    @relation(fields: [topikId], references: [id])
   topikId       String?
-  kota          Kota?        @relation(fields: [kotaId], references: [id])
+  kota          Kota?     @relation(fields: [kotaId], references: [id])
   kotaId        String?
-  kalangan      Kalangan?    @relation(fields: [kalanganId], references: [id])
+  kalangan      Kalangan? @relation(fields: [kalanganId], references: [id])
   kalanganId    String?
-  biaya         Biaya?       @relation(fields: [biayaId], references: [id])
+  biaya         Biaya?    @relation(fields: [biayaId], references: [id])
   biayaId       String?
-  pelaksanaan   Pelaksanaan? @relation(fields: [pelaksanaanId], references: [id])
-  pelaksanaanId String?
-  dibuatTanggal DateTime     @default(now())
+  pelaksanaan   String[]  @default(["offline", "-", "-", "-"])
+  dibuatTanggal DateTime  @default(now())
 }
 
 model Kategori {
@@ -74,21 +73,6 @@ model Biaya {
   name          String   @unique
   daftarAgenda  Agenda[]
   dibuatTanggal DateTime @default(now())
-}
-
-model Pelaksanaan {
-  id            String          @unique @default(uuid())
-  method        MethodPelaksaan @default(OFFLINE)
-  via           String?         @unique
-  detailVia     String?
-  urlVia        String?
-  daftarAgenda  Agenda[]
-  dibuatTanggal DateTime        @default(now())
-}
-
-enum MethodPelaksaan {
-  ONLINE
-  OFFLINE
 }
 
 enum Role {

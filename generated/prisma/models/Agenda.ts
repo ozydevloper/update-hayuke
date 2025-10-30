@@ -60,12 +60,12 @@ export type AgendaCountAggregateOutputType = {
   waktu: number
   pembicara: number
   penyelenggara: number
-  pelaksanaan: number
   kategoriId: number
   topikId: number
   kotaId: number
   kalanganId: number
   biayaId: number
+  pelaksanaan: number
   dibuatTanggal: number
   _all: number
 }
@@ -108,12 +108,12 @@ export type AgendaCountAggregateInputType = {
   waktu?: true
   pembicara?: true
   penyelenggara?: true
-  pelaksanaan?: true
   kategoriId?: true
   topikId?: true
   kotaId?: true
   kalanganId?: true
   biayaId?: true
+  pelaksanaan?: true
   dibuatTanggal?: true
   _all?: true
 }
@@ -199,12 +199,12 @@ export type AgendaGroupByOutputType = {
   waktu: string | null
   pembicara: string[]
   penyelenggara: string[]
-  pelaksanaan: string[]
   kategoriId: string | null
   topikId: string | null
   kotaId: string | null
   kalanganId: string | null
   biayaId: string | null
+  pelaksanaan: string[]
   dibuatTanggal: Date
   _count: AgendaCountAggregateOutputType | null
   _min: AgendaMinAggregateOutputType | null
@@ -238,12 +238,12 @@ export type AgendaWhereInput = {
   waktu?: Prisma.StringNullableFilter<"Agenda"> | string | null
   pembicara?: Prisma.StringNullableListFilter<"Agenda">
   penyelenggara?: Prisma.StringNullableListFilter<"Agenda">
-  pelaksanaan?: Prisma.StringNullableListFilter<"Agenda">
   kategoriId?: Prisma.StringNullableFilter<"Agenda"> | string | null
   topikId?: Prisma.StringNullableFilter<"Agenda"> | string | null
   kotaId?: Prisma.StringNullableFilter<"Agenda"> | string | null
   kalanganId?: Prisma.StringNullableFilter<"Agenda"> | string | null
   biayaId?: Prisma.StringNullableFilter<"Agenda"> | string | null
+  pelaksanaan?: Prisma.StringNullableListFilter<"Agenda">
   dibuatTanggal?: Prisma.DateTimeFilter<"Agenda"> | Date | string
   kategori?: Prisma.XOR<Prisma.KategoriNullableScalarRelationFilter, Prisma.KategoriWhereInput> | null
   topik?: Prisma.XOR<Prisma.TopikNullableScalarRelationFilter, Prisma.TopikWhereInput> | null
@@ -261,12 +261,12 @@ export type AgendaOrderByWithRelationInput = {
   waktu?: Prisma.SortOrderInput | Prisma.SortOrder
   pembicara?: Prisma.SortOrder
   penyelenggara?: Prisma.SortOrder
-  pelaksanaan?: Prisma.SortOrder
   kategoriId?: Prisma.SortOrderInput | Prisma.SortOrder
   topikId?: Prisma.SortOrderInput | Prisma.SortOrder
   kotaId?: Prisma.SortOrderInput | Prisma.SortOrder
   kalanganId?: Prisma.SortOrderInput | Prisma.SortOrder
   biayaId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pelaksanaan?: Prisma.SortOrder
   dibuatTanggal?: Prisma.SortOrder
   kategori?: Prisma.KategoriOrderByWithRelationInput
   topik?: Prisma.TopikOrderByWithRelationInput
@@ -287,12 +287,12 @@ export type AgendaWhereUniqueInput = Prisma.AtLeast<{
   waktu?: Prisma.StringNullableFilter<"Agenda"> | string | null
   pembicara?: Prisma.StringNullableListFilter<"Agenda">
   penyelenggara?: Prisma.StringNullableListFilter<"Agenda">
-  pelaksanaan?: Prisma.StringNullableListFilter<"Agenda">
   kategoriId?: Prisma.StringNullableFilter<"Agenda"> | string | null
   topikId?: Prisma.StringNullableFilter<"Agenda"> | string | null
   kotaId?: Prisma.StringNullableFilter<"Agenda"> | string | null
   kalanganId?: Prisma.StringNullableFilter<"Agenda"> | string | null
   biayaId?: Prisma.StringNullableFilter<"Agenda"> | string | null
+  pelaksanaan?: Prisma.StringNullableListFilter<"Agenda">
   dibuatTanggal?: Prisma.DateTimeFilter<"Agenda"> | Date | string
   kategori?: Prisma.XOR<Prisma.KategoriNullableScalarRelationFilter, Prisma.KategoriWhereInput> | null
   topik?: Prisma.XOR<Prisma.TopikNullableScalarRelationFilter, Prisma.TopikWhereInput> | null
@@ -310,12 +310,12 @@ export type AgendaOrderByWithAggregationInput = {
   waktu?: Prisma.SortOrderInput | Prisma.SortOrder
   pembicara?: Prisma.SortOrder
   penyelenggara?: Prisma.SortOrder
-  pelaksanaan?: Prisma.SortOrder
   kategoriId?: Prisma.SortOrderInput | Prisma.SortOrder
   topikId?: Prisma.SortOrderInput | Prisma.SortOrder
   kotaId?: Prisma.SortOrderInput | Prisma.SortOrder
   kalanganId?: Prisma.SortOrderInput | Prisma.SortOrder
   biayaId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pelaksanaan?: Prisma.SortOrder
   dibuatTanggal?: Prisma.SortOrder
   _count?: Prisma.AgendaCountOrderByAggregateInput
   _max?: Prisma.AgendaMaxOrderByAggregateInput
@@ -334,12 +334,12 @@ export type AgendaScalarWhereWithAggregatesInput = {
   waktu?: Prisma.StringNullableWithAggregatesFilter<"Agenda"> | string | null
   pembicara?: Prisma.StringNullableListFilter<"Agenda">
   penyelenggara?: Prisma.StringNullableListFilter<"Agenda">
-  pelaksanaan?: Prisma.StringNullableListFilter<"Agenda">
   kategoriId?: Prisma.StringNullableWithAggregatesFilter<"Agenda"> | string | null
   topikId?: Prisma.StringNullableWithAggregatesFilter<"Agenda"> | string | null
   kotaId?: Prisma.StringNullableWithAggregatesFilter<"Agenda"> | string | null
   kalanganId?: Prisma.StringNullableWithAggregatesFilter<"Agenda"> | string | null
   biayaId?: Prisma.StringNullableWithAggregatesFilter<"Agenda"> | string | null
+  pelaksanaan?: Prisma.StringNullableListFilter<"Agenda">
   dibuatTanggal?: Prisma.DateTimeWithAggregatesFilter<"Agenda"> | Date | string
 }
 
@@ -370,12 +370,12 @@ export type AgendaUncheckedCreateInput = {
   waktu?: string | null
   pembicara?: Prisma.AgendaCreatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaCreatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   kategoriId?: string | null
   topikId?: string | null
   kotaId?: string | null
   kalanganId?: string | null
   biayaId?: string | null
+  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   dibuatTanggal?: Date | string
 }
 
@@ -406,12 +406,12 @@ export type AgendaUncheckedUpdateInput = {
   waktu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pembicara?: Prisma.AgendaUpdatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaUpdatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   kategoriId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   topikId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kotaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kalanganId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   biayaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   dibuatTanggal?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -424,12 +424,12 @@ export type AgendaCreateManyInput = {
   waktu?: string | null
   pembicara?: Prisma.AgendaCreatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaCreatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   kategoriId?: string | null
   topikId?: string | null
   kotaId?: string | null
   kalanganId?: string | null
   biayaId?: string | null
+  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   dibuatTanggal?: Date | string
 }
 
@@ -455,12 +455,12 @@ export type AgendaUncheckedUpdateManyInput = {
   waktu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pembicara?: Prisma.AgendaUpdatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaUpdatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   kategoriId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   topikId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kotaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kalanganId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   biayaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   dibuatTanggal?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -481,12 +481,12 @@ export type AgendaCountOrderByAggregateInput = {
   waktu?: Prisma.SortOrder
   pembicara?: Prisma.SortOrder
   penyelenggara?: Prisma.SortOrder
-  pelaksanaan?: Prisma.SortOrder
   kategoriId?: Prisma.SortOrder
   topikId?: Prisma.SortOrder
   kotaId?: Prisma.SortOrder
   kalanganId?: Prisma.SortOrder
   biayaId?: Prisma.SortOrder
+  pelaksanaan?: Prisma.SortOrder
   dibuatTanggal?: Prisma.SortOrder
 }
 
@@ -808,11 +808,11 @@ export type AgendaUncheckedCreateWithoutKategoriInput = {
   waktu?: string | null
   pembicara?: Prisma.AgendaCreatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaCreatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   topikId?: string | null
   kotaId?: string | null
   kalanganId?: string | null
   biayaId?: string | null
+  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   dibuatTanggal?: Date | string
 }
 
@@ -854,12 +854,12 @@ export type AgendaScalarWhereInput = {
   waktu?: Prisma.StringNullableFilter<"Agenda"> | string | null
   pembicara?: Prisma.StringNullableListFilter<"Agenda">
   penyelenggara?: Prisma.StringNullableListFilter<"Agenda">
-  pelaksanaan?: Prisma.StringNullableListFilter<"Agenda">
   kategoriId?: Prisma.StringNullableFilter<"Agenda"> | string | null
   topikId?: Prisma.StringNullableFilter<"Agenda"> | string | null
   kotaId?: Prisma.StringNullableFilter<"Agenda"> | string | null
   kalanganId?: Prisma.StringNullableFilter<"Agenda"> | string | null
   biayaId?: Prisma.StringNullableFilter<"Agenda"> | string | null
+  pelaksanaan?: Prisma.StringNullableListFilter<"Agenda">
   dibuatTanggal?: Prisma.DateTimeFilter<"Agenda"> | Date | string
 }
 
@@ -889,11 +889,11 @@ export type AgendaUncheckedCreateWithoutTopikInput = {
   waktu?: string | null
   pembicara?: Prisma.AgendaCreatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaCreatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   kategoriId?: string | null
   kotaId?: string | null
   kalanganId?: string | null
   biayaId?: string | null
+  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   dibuatTanggal?: Date | string
 }
 
@@ -949,11 +949,11 @@ export type AgendaUncheckedCreateWithoutKotaInput = {
   waktu?: string | null
   pembicara?: Prisma.AgendaCreatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaCreatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   kategoriId?: string | null
   topikId?: string | null
   kalanganId?: string | null
   biayaId?: string | null
+  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   dibuatTanggal?: Date | string
 }
 
@@ -1009,11 +1009,11 @@ export type AgendaUncheckedCreateWithoutKalanganInput = {
   waktu?: string | null
   pembicara?: Prisma.AgendaCreatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaCreatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   kategoriId?: string | null
   topikId?: string | null
   kotaId?: string | null
   biayaId?: string | null
+  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   dibuatTanggal?: Date | string
 }
 
@@ -1069,11 +1069,11 @@ export type AgendaUncheckedCreateWithoutBiayaInput = {
   waktu?: string | null
   pembicara?: Prisma.AgendaCreatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaCreatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   kategoriId?: string | null
   topikId?: string | null
   kotaId?: string | null
   kalanganId?: string | null
+  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   dibuatTanggal?: Date | string
 }
 
@@ -1112,11 +1112,11 @@ export type AgendaCreateManyKategoriInput = {
   waktu?: string | null
   pembicara?: Prisma.AgendaCreatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaCreatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   topikId?: string | null
   kotaId?: string | null
   kalanganId?: string | null
   biayaId?: string | null
+  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   dibuatTanggal?: Date | string
 }
 
@@ -1146,11 +1146,11 @@ export type AgendaUncheckedUpdateWithoutKategoriInput = {
   waktu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pembicara?: Prisma.AgendaUpdatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaUpdatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   topikId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kotaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kalanganId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   biayaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   dibuatTanggal?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1163,11 +1163,11 @@ export type AgendaUncheckedUpdateManyWithoutKategoriInput = {
   waktu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pembicara?: Prisma.AgendaUpdatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaUpdatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   topikId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kotaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kalanganId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   biayaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   dibuatTanggal?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1180,11 +1180,11 @@ export type AgendaCreateManyTopikInput = {
   waktu?: string | null
   pembicara?: Prisma.AgendaCreatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaCreatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   kategoriId?: string | null
   kotaId?: string | null
   kalanganId?: string | null
   biayaId?: string | null
+  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   dibuatTanggal?: Date | string
 }
 
@@ -1214,11 +1214,11 @@ export type AgendaUncheckedUpdateWithoutTopikInput = {
   waktu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pembicara?: Prisma.AgendaUpdatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaUpdatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   kategoriId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kotaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kalanganId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   biayaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   dibuatTanggal?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1231,11 +1231,11 @@ export type AgendaUncheckedUpdateManyWithoutTopikInput = {
   waktu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pembicara?: Prisma.AgendaUpdatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaUpdatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   kategoriId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kotaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kalanganId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   biayaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   dibuatTanggal?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1248,11 +1248,11 @@ export type AgendaCreateManyKotaInput = {
   waktu?: string | null
   pembicara?: Prisma.AgendaCreatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaCreatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   kategoriId?: string | null
   topikId?: string | null
   kalanganId?: string | null
   biayaId?: string | null
+  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   dibuatTanggal?: Date | string
 }
 
@@ -1282,11 +1282,11 @@ export type AgendaUncheckedUpdateWithoutKotaInput = {
   waktu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pembicara?: Prisma.AgendaUpdatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaUpdatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   kategoriId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   topikId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kalanganId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   biayaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   dibuatTanggal?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1299,11 +1299,11 @@ export type AgendaUncheckedUpdateManyWithoutKotaInput = {
   waktu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pembicara?: Prisma.AgendaUpdatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaUpdatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   kategoriId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   topikId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kalanganId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   biayaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   dibuatTanggal?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1316,11 +1316,11 @@ export type AgendaCreateManyKalanganInput = {
   waktu?: string | null
   pembicara?: Prisma.AgendaCreatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaCreatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   kategoriId?: string | null
   topikId?: string | null
   kotaId?: string | null
   biayaId?: string | null
+  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   dibuatTanggal?: Date | string
 }
 
@@ -1350,11 +1350,11 @@ export type AgendaUncheckedUpdateWithoutKalanganInput = {
   waktu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pembicara?: Prisma.AgendaUpdatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaUpdatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   kategoriId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   topikId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kotaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   biayaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   dibuatTanggal?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1367,11 +1367,11 @@ export type AgendaUncheckedUpdateManyWithoutKalanganInput = {
   waktu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pembicara?: Prisma.AgendaUpdatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaUpdatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   kategoriId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   topikId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kotaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   biayaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   dibuatTanggal?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1384,11 +1384,11 @@ export type AgendaCreateManyBiayaInput = {
   waktu?: string | null
   pembicara?: Prisma.AgendaCreatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaCreatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   kategoriId?: string | null
   topikId?: string | null
   kotaId?: string | null
   kalanganId?: string | null
+  pelaksanaan?: Prisma.AgendaCreatepelaksanaanInput | string[]
   dibuatTanggal?: Date | string
 }
 
@@ -1418,11 +1418,11 @@ export type AgendaUncheckedUpdateWithoutBiayaInput = {
   waktu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pembicara?: Prisma.AgendaUpdatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaUpdatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   kategoriId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   topikId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kotaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kalanganId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   dibuatTanggal?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1435,11 +1435,11 @@ export type AgendaUncheckedUpdateManyWithoutBiayaInput = {
   waktu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pembicara?: Prisma.AgendaUpdatepembicaraInput | string[]
   penyelenggara?: Prisma.AgendaUpdatepenyelenggaraInput | string[]
-  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   kategoriId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   topikId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kotaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kalanganId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pelaksanaan?: Prisma.AgendaUpdatepelaksanaanInput | string[]
   dibuatTanggal?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1454,12 +1454,12 @@ export type AgendaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   waktu?: boolean
   pembicara?: boolean
   penyelenggara?: boolean
-  pelaksanaan?: boolean
   kategoriId?: boolean
   topikId?: boolean
   kotaId?: boolean
   kalanganId?: boolean
   biayaId?: boolean
+  pelaksanaan?: boolean
   dibuatTanggal?: boolean
   kategori?: boolean | Prisma.Agenda$kategoriArgs<ExtArgs>
   topik?: boolean | Prisma.Agenda$topikArgs<ExtArgs>
@@ -1477,12 +1477,12 @@ export type AgendaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   waktu?: boolean
   pembicara?: boolean
   penyelenggara?: boolean
-  pelaksanaan?: boolean
   kategoriId?: boolean
   topikId?: boolean
   kotaId?: boolean
   kalanganId?: boolean
   biayaId?: boolean
+  pelaksanaan?: boolean
   dibuatTanggal?: boolean
   kategori?: boolean | Prisma.Agenda$kategoriArgs<ExtArgs>
   topik?: boolean | Prisma.Agenda$topikArgs<ExtArgs>
@@ -1500,12 +1500,12 @@ export type AgendaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   waktu?: boolean
   pembicara?: boolean
   penyelenggara?: boolean
-  pelaksanaan?: boolean
   kategoriId?: boolean
   topikId?: boolean
   kotaId?: boolean
   kalanganId?: boolean
   biayaId?: boolean
+  pelaksanaan?: boolean
   dibuatTanggal?: boolean
   kategori?: boolean | Prisma.Agenda$kategoriArgs<ExtArgs>
   topik?: boolean | Prisma.Agenda$topikArgs<ExtArgs>
@@ -1523,16 +1523,16 @@ export type AgendaSelectScalar = {
   waktu?: boolean
   pembicara?: boolean
   penyelenggara?: boolean
-  pelaksanaan?: boolean
   kategoriId?: boolean
   topikId?: boolean
   kotaId?: boolean
   kalanganId?: boolean
   biayaId?: boolean
+  pelaksanaan?: boolean
   dibuatTanggal?: boolean
 }
 
-export type AgendaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "poster" | "judul" | "deskripsi" | "tanggal" | "waktu" | "pembicara" | "penyelenggara" | "pelaksanaan" | "kategoriId" | "topikId" | "kotaId" | "kalanganId" | "biayaId" | "dibuatTanggal", ExtArgs["result"]["agenda"]>
+export type AgendaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "poster" | "judul" | "deskripsi" | "tanggal" | "waktu" | "pembicara" | "penyelenggara" | "kategoriId" | "topikId" | "kotaId" | "kalanganId" | "biayaId" | "pelaksanaan" | "dibuatTanggal", ExtArgs["result"]["agenda"]>
 export type AgendaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   kategori?: boolean | Prisma.Agenda$kategoriArgs<ExtArgs>
   topik?: boolean | Prisma.Agenda$topikArgs<ExtArgs>
@@ -1573,12 +1573,12 @@ export type $AgendaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     waktu: string | null
     pembicara: string[]
     penyelenggara: string[]
-    pelaksanaan: string[]
     kategoriId: string | null
     topikId: string | null
     kotaId: string | null
     kalanganId: string | null
     biayaId: string | null
+    pelaksanaan: string[]
     dibuatTanggal: Date
   }, ExtArgs["result"]["agenda"]>
   composites: {}
@@ -2016,12 +2016,12 @@ export interface AgendaFieldRefs {
   readonly waktu: Prisma.FieldRef<"Agenda", 'String'>
   readonly pembicara: Prisma.FieldRef<"Agenda", 'String[]'>
   readonly penyelenggara: Prisma.FieldRef<"Agenda", 'String[]'>
-  readonly pelaksanaan: Prisma.FieldRef<"Agenda", 'String[]'>
   readonly kategoriId: Prisma.FieldRef<"Agenda", 'String'>
   readonly topikId: Prisma.FieldRef<"Agenda", 'String'>
   readonly kotaId: Prisma.FieldRef<"Agenda", 'String'>
   readonly kalanganId: Prisma.FieldRef<"Agenda", 'String'>
   readonly biayaId: Prisma.FieldRef<"Agenda", 'String'>
+  readonly pelaksanaan: Prisma.FieldRef<"Agenda", 'String[]'>
   readonly dibuatTanggal: Prisma.FieldRef<"Agenda", 'DateTime'>
 }
     
