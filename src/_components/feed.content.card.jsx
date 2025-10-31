@@ -14,13 +14,19 @@ const Description = ({ description }) => {
     <p>
       {(description.length >= max_length) & !isReadMore ? sorted : description}
       {!isReadMore ? (
-        <Button variant={"link"} size={"sm"} onClick={() => setReadMore(true)}>
+        <span
+          className="underline text-primary cursor-pointer"
+          onClick={() => setReadMore(true)}
+        >
           Baca lebih..
-        </Button>
+        </span>
       ) : (
-        <Button variant={"link"} size={"sm"} onClick={() => setReadMore(false)}>
+        <span
+          className="underline text-primary cursor-pointer"
+          onClick={() => setReadMore(false)}
+        >
           Baca kurang..
-        </Button>
+        </span>
       )}
     </p>
   );

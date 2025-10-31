@@ -6,3 +6,10 @@ export async function fetchAllKategori() {
   const res_json = await res.json();
   return res_json;
 }
+
+export async function mutationNewKategori(req) {
+  return await fetch(`${process.env.BASE_API_URL}kategori`, {
+    method: "POST",
+    body: JSON.stringify(req),
+  }).then((e) => e.json());
+}
