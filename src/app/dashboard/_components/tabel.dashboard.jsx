@@ -18,7 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { CalendarDays, Ellipsis, Plus, RefreshCcw } from "lucide-react";
+import { CalendarDays, Ellipsis, Plus, RefreshCcw, X } from "lucide-react";
 import { toast } from "sonner";
 import { refetchingData } from "./logic/refetchData";
 import { useRef } from "react";
@@ -45,6 +45,23 @@ const TabelLoading = () => {
   );
 };
 
+const FormAgenda = () => {
+  return (
+    <div className="inset-0 fixed h-dvh bg-black/25 z-50 flex justify-center">
+      <div className="mt-10">
+        <Card className={`gap-0 p-2 max-w-72 w-72`}>
+          <div className="text-sm font-bold flex items-center justify-between ml-4">
+            Form Agenda{" "}
+            <Button size={"icon"} variant={"outline"}>
+              <X />
+            </Button>
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
 const TabelDashboard = ({
   isPending,
   isError,
@@ -56,6 +73,7 @@ const TabelDashboard = ({
   const inputDateRef = useRef(null);
   return (
     <div className="flex flex-col">
+      <FormAgenda />
       <div className="font-bold text-sm my-5">Tabel Agenda</div>
       <p className="text-[0.680rem]">Filter dengan Tanggal</p>
       <div className="flex gap-x-1 items-center justify-center">
