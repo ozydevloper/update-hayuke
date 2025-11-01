@@ -22,7 +22,6 @@ export default async function Home() {
         </div>
         <div className="flex flex-col md:flex-row my-3 gap-y-1 items-center justify-between">
           <Button className="md:w-[49%] w-full">Event Hari ini</Button>
-          nambah gini doang
           <Button variant="outline" className={`md:w-[49%] w-full`}>
             Event Upcoming
           </Button>

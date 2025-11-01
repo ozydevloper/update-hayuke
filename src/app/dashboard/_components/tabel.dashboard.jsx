@@ -21,6 +21,7 @@ import {
 import { CalendarDays, Ellipsis, Plus, RefreshCcw } from "lucide-react";
 import { toast } from "sonner";
 import { refetchingData } from "./logic/refetchData";
+import { useRef } from "react";
 
 const TabelError = ({ refetch }) => {
   return (
@@ -52,6 +53,7 @@ const TabelDashboard = ({
   refetch,
   isRefetching,
 }) => {
+  const inputDateRef = useRef(null);
   return (
     <div className="flex flex-col">
       <div className="font-bold text-sm my-5">Tabel Agenda</div>
@@ -60,7 +62,7 @@ const TabelDashboard = ({
         <Button variant={"outline"} size={"icon-sm"}>
           <CalendarDays />
         </Button>
-        <Input placeholder="filter" type={"date"} />
+        <Input placeholder="filter" type={"date"} ref={inputDateRef} />
         <Button>Apply</Button>
       </div>
       <div className="flex my-2 justify-center gap-x-1">

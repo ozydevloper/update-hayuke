@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useState } from "react";
+import { useRef } from "react";
 import { toast } from "sonner";
 import { refetchingData } from "./logic/refetchData";
 
@@ -48,13 +48,10 @@ const ItemError = ({ name, refetch }) => {
 };
 
 const Item = ({ name, idItem, actionDelete, actionUpdate }) => {
-  const [newValue, setNewValue] = useState(name);
+  const inputRef = useRef(null);
   return (
     <div className="w-full border hover:bg-muted p-1 rounded-lg transition-all ease-in-out duration-300 flex items-center justify-between gap-x-1">
-      <Input
-        defaultValue={name}
-        onChange={(e) => setNewValue(e.target.value)}
-      />
+      <Input defaultValue={name} ref={inputRef} />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button size={"icon-sm"} variant="outline">
@@ -65,7 +62,9 @@ const Item = ({ name, idItem, actionDelete, actionUpdate }) => {
           <DropdownMenuLabel>{name}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            onClick={() => actionUpdate({ id: idItem, newName: newValue })}
+            onClick={() =>
+              actionUpdate({ id: idItem, newName: inputRef.current.value })
+            }
           >
             Update
           </DropdownMenuItem>
@@ -89,12 +88,11 @@ const ItemDashboard = ({
   deleteMutate,
   updateMutate,
 }) => {
-  const [value, setValue] = useState("");
-
+  const inputRef = useRef(null);
   const handleAdd = async () => {
     toast.promise(
       async () => {
-        await createMutate({ name: value });
+        await createMutate({ name: inputRef.current.value });
         refetch();
       },
       {
@@ -146,10 +144,7 @@ const ItemDashboard = ({
           </Button>
         </div>
         <div className="w-full flex gap-x-1">
-          <Input
-            placeholder={`New ${nameTab}`}
-            onChange={(e) => setValue(e.target.value)}
-          />
+          <Input placeholder={`New ${nameTab}`} ref={inputRef} />
           <Button size={"icon-sm"} variant={"outline"} onClick={handleAdd}>
             <SendHorizonal size={"icon"} />
           </Button>

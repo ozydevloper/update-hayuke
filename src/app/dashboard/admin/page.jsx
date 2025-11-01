@@ -33,9 +33,6 @@ import {
 } from "@/lib/api/biaya/api";
 import TabelDashboard from "../_components/tabel.dashboard";
 import { fetchAllAgenda } from "@/lib/api/agenda/api";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { CalendarDays, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 const AdminPage = () => {
