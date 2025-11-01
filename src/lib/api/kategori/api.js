@@ -13,3 +13,10 @@ export async function mutationNewKategori(req) {
     body: JSON.stringify(req),
   }).then((e) => e.json());
 }
+
+export async function mutationDeleteKategori(req) {
+  return await fetch(`${process.env.BASE_API_URL}kategori`, {
+    method: "DELETE",
+    body: JSON.stringify(req),
+  }).then((e) => e.json());
+}

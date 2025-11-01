@@ -11,4 +11,11 @@ export const KategoriServices = {
       },
     });
   },
+  async deleteKategori(req) {
+    return await prisma.kategori.delete({
+      where: {
+        id: req.id,
+      },
+    });
+  },
 };

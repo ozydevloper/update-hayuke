@@ -16,6 +16,16 @@ export async function POST(req = NextRequest) {
     await KategoriServices.createKategori(body);
     return NextResponse.json({ message: "Success" });
   } catch (err) {
-    return NextResponse.json(err);
+    return NextResponse.error(err);
+  }
+}
+
+export async function DELETE(req = NextRequest) {
+  try {
+    const body = await req.json();
+    await KategoriServices.deleteKategori(body);
+    return NextResponse.json({ message: "Success" });
+  } catch (err) {
+    return NextResponse.error(err);
   }
 }

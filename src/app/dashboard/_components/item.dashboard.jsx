@@ -57,7 +57,7 @@ const Item = ({ name, idItem, actionDelete, actionEdit }) => {
           <DropdownMenuItem onClick={() => alert(`Mengedit Id: ${idItem}`)}>
             Edit
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => alert(`Mengapus Id: ${idItem}`)}>
+          <DropdownMenuItem onClick={() => actionDelete(idItem)}>
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -73,19 +73,34 @@ const ItemDashboard = ({
   isSuccess,
   data = [],
   refetch,
-  mutateAsync,
+  createMutate,
+  deleteMutate,
 }) => {
   const [value, setValue] = useState("");
+
   const handleAdd = async () => {
     toast.promise(
       async () => {
-        await mutateAsync({ name: value });
+        await createMutate({ name: value });
         refetch();
       },
       {
         loading: "Sedang menambahkan...",
         error: "Terjadi error!",
         success: "Berhasil menambahkan!",
+      }
+    );
+  };
+  const handleRemove = async (id) => {
+    toast.promise(
+      async () => {
+        await deleteMutate({ id: id });
+        refetch();
+      },
+      {
+        loading: "Sedang menghapus...",
+        error: "Terjadi error!",
+        success: "Berhasil menghapus!",
       }
     );
   };
@@ -113,8 +128,15 @@ const ItemDashboard = ({
             <ItemError refetch={refetch} />
           ) : (
             isSuccess &&
-            data.map((e, i) => {
-              return <Item key={i} name={e.name} idItem={e.id} />;
+            data?.map((e, i) => {
+              return (
+                <Item
+                  key={i}
+                  name={e.name}
+                  idItem={e.id}
+                  actionDelete={handleRemove}
+                />
+              );
             })
           )}
         </div>

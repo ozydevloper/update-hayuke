@@ -1,16 +1,21 @@
 "use client";
-import { fetchAllKategori, mutationNewKategori } from "@/lib/api/kategori/api";
+import {
+  fetchAllKategori,
+  mutationDeleteKategori,
+  mutationNewKategori,
+} from "@/lib/api/kategori/api";
 import ItemDashboard from "../_components/item.dashboard";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { fetchAllTopik, mutationNewTopik } from "@/lib/api/topik/api";
-import { fetchAllKota } from "@/lib/api/kota/api";
-import { fetchAllKalangan } from "@/lib/api/kalangan/api";
-import { fetchAllBiaya } from "@/lib/api/biaya/api";
+import { fetchAllKota, mutationNewKota } from "@/lib/api/kota/api";
+import { fetchAllKalangan, mutationNewKalangan } from "@/lib/api/kalangan/api";
+import { fetchAllBiaya, mutationNewBiaya } from "@/lib/api/biaya/api";
 import TabelDashboard from "../_components/tabel.dashboard";
 import { fetchAllAgenda } from "@/lib/api/agenda/api";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CalendarDays } from "lucide-react";
+import { toast } from "sonner";
 
 const AdminPage = () => {
   const allAgenda = useQuery({
@@ -26,6 +31,17 @@ const AdminPage = () => {
     mutationFn: async (req) => {
       return await mutationNewKategori(req);
     },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
+  });
+  const useMutationDeleteKategori = useMutation({
+    mutationFn: async (req) => {
+      return await mutationDeleteKategori(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
   });
 
   const allTopik = useQuery({
@@ -36,21 +52,48 @@ const AdminPage = () => {
     mutationFn: async (req) => {
       return await mutationNewTopik(req);
     },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
   });
 
   const allKota = useQuery({
     queryKey: ["kota"],
     queryFn: fetchAllKota,
   });
+  const useMutationNewKota = useMutation({
+    mutationFn: async (req) => {
+      return await mutationNewKota(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
+  });
 
   const allKalangan = useQuery({
     queryKey: ["kalangan"],
     queryFn: fetchAllKalangan,
   });
+  const useMutationNewKalangan = useMutation({
+    mutationFn: async (req) => {
+      return await mutationNewKalangan(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
+  });
 
   const allBiaya = useQuery({
     queryKey: ["biaya"],
     queryFn: fetchAllBiaya,
+  });
+  const useMutationBiaya = useMutation({
+    mutationFn: async (req) => {
+      return await mutationNewBiaya(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
   });
 
   return (
@@ -83,7 +126,8 @@ const AdminPage = () => {
             isSuccess={allKategori.isSuccess}
             data={allKategori.data}
             refetch={allKategori.refetch}
-            mutateAsync={useMutationNewKategori.mutateAsync}
+            createMutate={useMutationNewKategori.mutateAsync}
+            deleteMutate={useMutationDeleteKategori.mutateAsync}
           />
           <ItemDashboard
             nameTab={"Topik"}
@@ -92,7 +136,7 @@ const AdminPage = () => {
             isSuccess={allTopik.isSuccess}
             data={allTopik.data}
             refetch={allTopik.refetch}
-            mutateAsync={useMutationNewTopik.mutateAsync}
+            createMutate={useMutationNewTopik.mutateAsync}
           />
           <ItemDashboard
             nameTab={"Kota"}
@@ -101,6 +145,7 @@ const AdminPage = () => {
             isSuccess={allKota.isSuccess}
             data={allKota.data}
             refetch={allKota.refetch}
+            createMutate={useMutationNewKota.mutateAsync}
           />
           <ItemDashboard
             nameTab={"Kalangan"}
@@ -109,6 +154,7 @@ const AdminPage = () => {
             isSuccess={allKalangan.isSuccess}
             data={allKalangan.data}
             refetch={allKalangan.refetch}
+            createMutate={useMutationNewKalangan.mutateAsync}
           />
           <ItemDashboard
             nameTab={"Biaya"}
@@ -117,6 +163,7 @@ const AdminPage = () => {
             isSuccess={allBiaya.isSuccess}
             data={allBiaya.data}
             refetch={allBiaya.refetch}
+            createMutate={useMutationBiaya.mutateAsync}
           />
         </div>
       </div>

@@ -8,3 +8,12 @@ export async function GET() {
     return NextResponse.error(err);
   }
 }
+export async function POST(req = NextRequest) {
+  try {
+    const body = await req.json();
+    await BiayaServices.createBiaya(body);
+    return NextResponse.json({ message: "Success" });
+  } catch (err) {
+    return NextResponse.json(err);
+  }
+}

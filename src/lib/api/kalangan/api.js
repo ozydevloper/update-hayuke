@@ -10,6 +10,6 @@ export async function fetchAllKalangan() {
 export async function mutationNewKalangan(req) {
   return await fetch(`${process.env.BASE_API_URL}kalangan`, {
     method: "POST",
-    body: req,
-  });
+    body: JSON.stringify(req),
+  }).then((e) => e.json());
 }
