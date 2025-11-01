@@ -14,3 +14,16 @@ export async function mutationNewTopik(req) {
     body: JSON.stringify(req),
   }).then((e) => e.json());
 }
+
+export async function mutationDeleteTopik(req) {
+  return await fetch(`${ENDPOINT}`, {
+    method: "DELETE",
+    body: JSON.stringify(req),
+  }).then((e) => e.json());
+}
+export async function mutationUpdateTopik(req) {
+  return await fetch(`${ENDPOINT}`, {
+    method: "PUT",
+    body: JSON.stringify(req),
+  }).then((e) => e.json());
+}

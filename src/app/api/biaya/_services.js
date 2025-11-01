@@ -11,4 +11,21 @@ export const BiayaServices = {
       },
     });
   },
+  async deleteBiaya(req) {
+    return await prisma.biaya.delete({
+      where: {
+        id: req.id,
+      },
+    });
+  },
+  async updateBiaya(req) {
+    return await prisma.biaya.update({
+      where: {
+        id: req.id,
+      },
+      data: {
+        name: req.name,
+      },
+    });
+  },
 };

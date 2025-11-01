@@ -17,3 +17,22 @@ export async function POST(req = NextRequest) {
     return NextResponse.json(err);
   }
 }
+export async function DELETE(req = NextRequest) {
+  try {
+    const body = await req.json();
+    await BiayaServices.deleteBiaya(body);
+    return NextResponse.json({ message: "Success" });
+  } catch (err) {
+    return NextResponse.error(err);
+  }
+}
+
+export async function PUT(req = NextRequest) {
+  try {
+    const body = await req.json();
+    await BiayaServices.updateBiaya(body);
+    return NextResponse.json({ message: "Success" });
+  } catch (err) {
+    return NextResponse.error(err);
+  }
+}

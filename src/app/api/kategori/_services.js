@@ -18,4 +18,14 @@ export const KategoriServices = {
       },
     });
   },
+  async updateKategori(req) {
+    return await prisma.kategori.update({
+      where: {
+        id: req.id,
+      },
+      data: {
+        name: req.name,
+      },
+    });
+  },
 };

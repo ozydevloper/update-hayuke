@@ -11,11 +11,11 @@ const Description = ({ description }) => {
   const max_length = 190;
   const sorted = description.slice(0, max_length);
   return (
-    <p>
+    <p className="text-sm">
       {(description.length >= max_length) & !isReadMore ? sorted : description}
       {!isReadMore ? (
         <span
-          className="underline text-primary cursor-pointer"
+          className="underline text-primary cursor-pointer mx-1"
           onClick={() => setReadMore(true)}
         >
           Baca lebih..

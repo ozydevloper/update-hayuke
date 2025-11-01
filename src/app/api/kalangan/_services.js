@@ -11,4 +11,21 @@ export const KalanganServices = {
       },
     });
   },
+  async deleteKalangan(req) {
+    return await prisma.kalangan.delete({
+      where: {
+        id: req.id,
+      },
+    });
+  },
+  async updateKalangan(req) {
+    return await prisma.kalangan.update({
+      where: {
+        id: req.id,
+      },
+      data: {
+        name: req.name,
+      },
+    });
+  },
 };

@@ -8,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
@@ -17,7 +18,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Ellipsis } from "lucide-react";
+import { CalendarDays, Ellipsis, Plus, RefreshCcw } from "lucide-react";
+import { toast } from "sonner";
+import { refetchingData } from "./logic/refetchData";
 
 const TabelError = ({ refetch }) => {
   return (
@@ -42,15 +45,39 @@ const TabelLoading = () => {
 };
 
 const TabelDashboard = ({
-  isLoading,
+  isPending,
   isError,
   isSuccess,
   data = [],
   refetch,
+  isRefetching,
 }) => {
   return (
-    <div>
-      {isLoading ? (
+    <div className="flex flex-col">
+      <div className="font-bold text-sm my-5">Tabel Agenda</div>
+      <p className="text-[0.680rem]">Filter dengan Tanggal</p>
+      <div className="flex gap-x-1 items-center justify-center">
+        <Button variant={"outline"} size={"icon-sm"}>
+          <CalendarDays />
+        </Button>
+        <Input placeholder="filter" type={"date"} />
+        <Button>Apply</Button>
+      </div>
+      <div className="flex my-2 justify-center gap-x-1">
+        <div className="w-full">
+          <Button variant={"outline"} className={"w-full"}>
+            New Agenda <Plus />
+          </Button>
+        </div>
+        <Button
+          onClick={() => {
+            refetchingData("Tabel", refetch);
+          }}
+        >
+          <RefreshCcw />
+        </Button>
+      </div>
+      {isPending ? (
         <TabelLoading />
       ) : isError ? (
         <TabelError refetch={refetch} />

@@ -1,6 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
 import { toast } from "sonner";
+import { refetchingData } from "./logic/refetchData";
 
 const { SendHorizonal, Ellipsis, RefreshCw } = require("lucide-react");
 
@@ -24,7 +30,7 @@ const ItemLoading = () => {
   );
 };
 
-const ItemError = ({ refetch }) => {
+const ItemError = ({ name, refetch }) => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <p className="text-sm ">Terjadi Error</p>
@@ -32,7 +38,7 @@ const ItemError = ({ refetch }) => {
         size={"sm"}
         onClick={(e) => {
           e.preventDefault();
-          refetch();
+          refetchingData(name, refetch);
         }}
       >
         <RefreshCw /> Refetch
@@ -41,10 +47,14 @@ const ItemError = ({ refetch }) => {
   );
 };
 
-const Item = ({ name, idItem, actionDelete, actionEdit }) => {
+const Item = ({ name, idItem, actionDelete, actionUpdate }) => {
+  const [newValue, setNewValue] = useState(name);
   return (
-    <div className="w-full border hover:bg-muted p-1 rounded-lg transition-all ease-in-out duration-300 flex items-center justify-between">
-      <p className="truncate">{name}</p>
+    <div className="w-full border hover:bg-muted p-1 rounded-lg transition-all ease-in-out duration-300 flex items-center justify-between gap-x-1">
+      <Input
+        defaultValue={name}
+        onChange={(e) => setNewValue(e.target.value)}
+      />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button size={"icon-sm"} variant="outline">
@@ -54,8 +64,10 @@ const Item = ({ name, idItem, actionDelete, actionEdit }) => {
         <DropdownMenuContent>
           <DropdownMenuLabel>{name}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => alert(`Mengedit Id: ${idItem}`)}>
-            Edit
+          <DropdownMenuItem
+            onClick={() => actionUpdate({ id: idItem, newName: newValue })}
+          >
+            Update
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => actionDelete(idItem)}>
             Delete
@@ -75,6 +87,7 @@ const ItemDashboard = ({
   refetch,
   createMutate,
   deleteMutate,
+  updateMutate,
 }) => {
   const [value, setValue] = useState("");
 
@@ -91,6 +104,7 @@ const ItemDashboard = ({
       }
     );
   };
+
   const handleRemove = async (id) => {
     toast.promise(
       async () => {
@@ -104,11 +118,32 @@ const ItemDashboard = ({
       }
     );
   };
+
+  const handleUpdate = async ({ id, newName }) => {
+    toast.promise(
+      async () => {
+        await updateMutate({ id: id, name: newName });
+        refetch();
+      },
+      {
+        loading: "Sedang memperbarui...",
+        error: "Terjadi error!",
+        success: "Berhasil memperbarui!",
+      }
+    );
+  };
   return (
     <Card className={"p-2 gap-0 w-full flex flex-col justify-center gap-y-2"}>
       <div className="flex flex-col items-center gap-x-1">
-        <div className="flex w-full items-center justify-start font-bold text-sm my-1 ml-3">
+        <div className="flex w-full items-center justify-between font-bold text-sm my-1 mx-3">
           {nameTab}
+          <Button
+            size={"icon-sm"}
+            variant={"outline"}
+            onClick={() => refetchingData(nameTab, refetch)}
+          >
+            <RefreshCw />
+          </Button>
         </div>
         <div className="w-full flex gap-x-1">
           <Input
@@ -125,7 +160,7 @@ const ItemDashboard = ({
           {isLoading ? (
             <ItemLoading />
           ) : isError ? (
-            <ItemError refetch={refetch} />
+            <ItemError name={nameTab} refetch={refetch} />
           ) : (
             isSuccess &&
             data?.map((e, i) => {
@@ -135,6 +170,7 @@ const ItemDashboard = ({
                   name={e.name}
                   idItem={e.id}
                   actionDelete={handleRemove}
+                  actionUpdate={handleUpdate}
                 />
               );
             })

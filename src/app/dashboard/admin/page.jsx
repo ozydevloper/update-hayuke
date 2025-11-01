@@ -3,18 +3,39 @@ import {
   fetchAllKategori,
   mutationDeleteKategori,
   mutationNewKategori,
+  mutationUpdateKategori,
 } from "@/lib/api/kategori/api";
 import ItemDashboard from "../_components/item.dashboard";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { fetchAllTopik, mutationNewTopik } from "@/lib/api/topik/api";
-import { fetchAllKota, mutationNewKota } from "@/lib/api/kota/api";
-import { fetchAllKalangan, mutationNewKalangan } from "@/lib/api/kalangan/api";
-import { fetchAllBiaya, mutationNewBiaya } from "@/lib/api/biaya/api";
+import {
+  fetchAllTopik,
+  mutationDeleteTopik,
+  mutationNewTopik,
+  mutationUpdateTopik,
+} from "@/lib/api/topik/api";
+import {
+  fetchAllKota,
+  mutationDeleteKota,
+  mutationNewKota,
+  mutationUpdateKota,
+} from "@/lib/api/kota/api";
+import {
+  fetchAllKalangan,
+  mutationDeleteKalangan,
+  mutationNewKalangan,
+  mutationUpdateKalangan,
+} from "@/lib/api/kalangan/api";
+import {
+  fetchAllBiaya,
+  mutationDeleteBiaya,
+  mutationNewBiaya,
+  mutationUpdateBiaya,
+} from "@/lib/api/biaya/api";
 import TabelDashboard from "../_components/tabel.dashboard";
 import { fetchAllAgenda } from "@/lib/api/agenda/api";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CalendarDays } from "lucide-react";
+import { CalendarDays, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 const AdminPage = () => {
@@ -23,6 +44,7 @@ const AdminPage = () => {
     queryFn: fetchAllAgenda,
   });
 
+  // {'Kategori'}
   const allKategori = useQuery({
     queryKey: ["kategori"],
     queryFn: fetchAllKategori,
@@ -43,7 +65,16 @@ const AdminPage = () => {
       toast.error(`${error.name}`);
     },
   });
+  const useMutationUpdateKategori = useMutation({
+    mutationFn: async (req) => {
+      return await mutationUpdateKategori(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
+  });
 
+  // {'Topik'}
   const allTopik = useQuery({
     queryKey: ["topik"],
     queryFn: fetchAllTopik,
@@ -56,7 +87,24 @@ const AdminPage = () => {
       toast.error(`${error.name}`);
     },
   });
+  const useMutationDeleteTopik = useMutation({
+    mutationFn: async (req) => {
+      return await mutationDeleteTopik(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
+  });
+  const useMutationUpdateTopik = useMutation({
+    mutationFn: async (req) => {
+      return await mutationUpdateTopik(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
+  });
 
+  // {'Topik'}
   const allKota = useQuery({
     queryKey: ["kota"],
     queryFn: fetchAllKota,
@@ -69,7 +117,24 @@ const AdminPage = () => {
       toast.error(`${error.name}`);
     },
   });
+  const useMutationDeleteKota = useMutation({
+    mutationFn: async (req) => {
+      return await mutationDeleteKota(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
+  });
+  const useMutationUpdateKota = useMutation({
+    mutationFn: async (req) => {
+      return await mutationUpdateKota(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
+  });
 
+  // {'Kalangan'}
   const allKalangan = useQuery({
     queryKey: ["kalangan"],
     queryFn: fetchAllKalangan,
@@ -82,7 +147,24 @@ const AdminPage = () => {
       toast.error(`${error.name}`);
     },
   });
+  const useMutationDeleteKalangan = useMutation({
+    mutationFn: async (req) => {
+      return await mutationDeleteKalangan(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
+  });
+  const useMutationUpdateKalangan = useMutation({
+    mutationFn: async (req) => {
+      return await mutationUpdateKalangan(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
+  });
 
+  // {'Kalangan'}
   const allBiaya = useQuery({
     queryKey: ["biaya"],
     queryFn: fetchAllBiaya,
@@ -95,25 +177,33 @@ const AdminPage = () => {
       toast.error(`${error.name}`);
     },
   });
+  const useMutationDeleteBiaya = useMutation({
+    mutationFn: async (req) => {
+      return await mutationDeleteBiaya(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
+  });
+  const useMutationUpdateBiaya = useMutation({
+    mutationFn: async (req) => {
+      return await mutationUpdateBiaya(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.name}`);
+    },
+  });
 
   return (
     <div>
       <div className="flex flex-col">
-        <div className="font-bold text-sm my-5">Tabel Agenda</div>
-        <p className="text-[0.680rem]">Filter dengan Tanggal</p>
-        <div className="flex my-2 gap-x-1 items-center justify-center">
-          <Button variant={"outline"} size={"icon-sm"}>
-            <CalendarDays />
-          </Button>
-          <Input placeholder="filter" type={"date"} />
-          <Button>Apply</Button>
-        </div>
         <TabelDashboard
           isError={allAgenda.isError}
-          isLoading={allAgenda.isLoading}
+          isPending={allAgenda.isPending}
           isSuccess={allAgenda.isSuccess}
           data={allAgenda.data}
           refetch={allAgenda.refetch}
+          isRefetching={allAgenda.isRefetching}
         />
       </div>
       <div className="flex flex-col">
@@ -128,6 +218,7 @@ const AdminPage = () => {
             refetch={allKategori.refetch}
             createMutate={useMutationNewKategori.mutateAsync}
             deleteMutate={useMutationDeleteKategori.mutateAsync}
+            updateMutate={useMutationUpdateKategori.mutateAsync}
           />
           <ItemDashboard
             nameTab={"Topik"}
@@ -137,6 +228,8 @@ const AdminPage = () => {
             data={allTopik.data}
             refetch={allTopik.refetch}
             createMutate={useMutationNewTopik.mutateAsync}
+            deleteMutate={useMutationDeleteTopik.mutateAsync}
+            updateMutate={useMutationUpdateTopik.mutateAsync}
           />
           <ItemDashboard
             nameTab={"Kota"}
@@ -146,6 +239,8 @@ const AdminPage = () => {
             data={allKota.data}
             refetch={allKota.refetch}
             createMutate={useMutationNewKota.mutateAsync}
+            deleteMutate={useMutationDeleteKota.mutateAsync}
+            updateMutate={useMutationUpdateKota.mutateAsync}
           />
           <ItemDashboard
             nameTab={"Kalangan"}
@@ -155,6 +250,8 @@ const AdminPage = () => {
             data={allKalangan.data}
             refetch={allKalangan.refetch}
             createMutate={useMutationNewKalangan.mutateAsync}
+            deleteMutate={useMutationDeleteKalangan.mutateAsync}
+            updateMutate={useMutationUpdateKalangan.mutateAsync}
           />
           <ItemDashboard
             nameTab={"Biaya"}
@@ -164,6 +261,8 @@ const AdminPage = () => {
             data={allBiaya.data}
             refetch={allBiaya.refetch}
             createMutate={useMutationBiaya.mutateAsync}
+            deleteMutate={useMutationDeleteBiaya.mutateAsync}
+            updateMutate={useMutationUpdateBiaya.mutateAsync}
           />
         </div>
       </div>
