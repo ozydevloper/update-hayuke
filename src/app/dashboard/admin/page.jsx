@@ -39,12 +39,14 @@ const AdminPage = () => {
   const allAgenda = useQuery({
     queryKey: ["allagenda"],
     queryFn: fetchAllAgenda,
+    staleTime: 5 * 60 * 1000,
   });
 
   // {'Kategori'}
   const allKategori = useQuery({
     queryKey: ["kategori"],
     queryFn: fetchAllKategori,
+    staleTime: 5 * 60 * 1000,
   });
   const useMutationNewKategori = useMutation({
     mutationFn: async (req) => {
@@ -75,6 +77,7 @@ const AdminPage = () => {
   const allTopik = useQuery({
     queryKey: ["topik"],
     queryFn: fetchAllTopik,
+    staleTime: 5 * 60 * 1000,
   });
   const useMutationNewTopik = useMutation({
     mutationFn: async (req) => {
@@ -101,10 +104,11 @@ const AdminPage = () => {
     },
   });
 
-  // {'Topik'}
+  // {'KOta'}
   const allKota = useQuery({
     queryKey: ["kota"],
     queryFn: fetchAllKota,
+    staleTime: 5 * 60 * 1000,
   });
   const useMutationNewKota = useMutation({
     mutationFn: async (req) => {
@@ -135,6 +139,7 @@ const AdminPage = () => {
   const allKalangan = useQuery({
     queryKey: ["kalangan"],
     queryFn: fetchAllKalangan,
+    staleTime: 5 * 60 * 1000,
   });
   const useMutationNewKalangan = useMutation({
     mutationFn: async (req) => {
@@ -161,10 +166,11 @@ const AdminPage = () => {
     },
   });
 
-  // {'Kalangan'}
+  // {'Biaya'}
   const allBiaya = useQuery({
     queryKey: ["biaya"],
     queryFn: fetchAllBiaya,
+    staleTime: 5 * 60 * 1000,
   });
   const useMutationBiaya = useMutation({
     mutationFn: async (req) => {
@@ -204,7 +210,7 @@ const AdminPage = () => {
         />
       </div>
       <div className="flex flex-col">
-        <div className="font-bold text-sm my-5">Kateogri, Topik, DLL</div>
+        <div className="font-bold text-sm my-5">Kategori, Topik, DLL</div>
         <div className="grid  gap-2 grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
           <ItemDashboard
             nameTab={"Kategori"}
