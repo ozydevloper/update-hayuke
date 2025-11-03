@@ -1,39 +1,8 @@
 "use client";
-import {
-  fetchAllKategori,
-  mutationDeleteKategori,
-  mutationNewKategori,
-  mutationUpdateKategori,
-} from "@/lib/api/kategori/api";
 import ItemDashboard from "../_components/item.dashboard";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import {
-  fetchAllTopik,
-  mutationDeleteTopik,
-  mutationNewTopik,
-  mutationUpdateTopik,
-} from "@/lib/api/topik/api";
-import {
-  fetchAllKota,
-  mutationDeleteKota,
-  mutationNewKota,
-  mutationUpdateKota,
-} from "@/lib/api/kota/api";
-import {
-  fetchAllKalangan,
-  mutationDeleteKalangan,
-  mutationNewKalangan,
-  mutationUpdateKalangan,
-} from "@/lib/api/kalangan/api";
-import {
-  fetchAllBiaya,
-  mutationDeleteBiaya,
-  mutationNewBiaya,
-  mutationUpdateBiaya,
-} from "@/lib/api/biaya/api";
+import { useQuery } from "@tanstack/react-query";
 import TabelDashboard from "../_components/tabel.dashboard";
 import { fetchAllAgenda } from "@/lib/api/agenda/api";
-import { toast } from "sonner";
 import {
   useDeleteKategori,
   useNewKategori,
@@ -52,6 +21,18 @@ import {
   useQueryKota,
   useUpdateKota,
 } from "@/lib/api/kota/useKota";
+import {
+  useDeleteKalangan,
+  useNewKalangan,
+  useQueryKalangan,
+  useUpdateKalangan,
+} from "@/lib/api/kalangan/useKalangan";
+import {
+  useDeleteBiaya,
+  useNewBiaya,
+  useQueryBiaya,
+  useUpdateBiaya,
+} from "@/lib/api/biaya/useBiaya";
 
 const AdminPage = () => {
   const allAgenda = useQuery({
@@ -79,66 +60,16 @@ const AdminPage = () => {
   const useMutationUpdateKota = useUpdateKota();
 
   // {'Kalangan'}
-  const allKalangan = useQuery({
-    queryKey: ["kalangan"],
-    queryFn: fetchAllKalangan,
-    staleTime: 5 * 60 * 1000,
-  });
-  const useMutationNewKalangan = useMutation({
-    mutationFn: async (req) => {
-      return await mutationNewKalangan(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
-  const useMutationDeleteKalangan = useMutation({
-    mutationFn: async (req) => {
-      return await mutationDeleteKalangan(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
-  const useMutationUpdateKalangan = useMutation({
-    mutationFn: async (req) => {
-      return await mutationUpdateKalangan(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
+  const allKalangan = useQueryKalangan();
+  const useMutationNewKalangan = useNewKalangan();
+  const useMutationDeleteKalangan = useDeleteKalangan();
+  const useMutationUpdateKalangan = useUpdateKalangan();
 
   // {'Biaya'}
-  const allBiaya = useQuery({
-    queryKey: ["biaya"],
-    queryFn: fetchAllBiaya,
-    staleTime: 5 * 60 * 1000,
-  });
-  const useMutationBiaya = useMutation({
-    mutationFn: async (req) => {
-      return await mutationNewBiaya(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
-  const useMutationDeleteBiaya = useMutation({
-    mutationFn: async (req) => {
-      return await mutationDeleteBiaya(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
-  const useMutationUpdateBiaya = useMutation({
-    mutationFn: async (req) => {
-      return await mutationUpdateBiaya(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
+  const allBiaya = useQueryBiaya();
+  const useMutationNewBiaya = useNewBiaya();
+  const useMutationDeleteBiaya = useDeleteBiaya();
+  const useMutationUpdateBiaya = useUpdateBiaya();
 
   return (
     <div>
@@ -206,7 +137,7 @@ const AdminPage = () => {
             isSuccess={allBiaya.isSuccess}
             data={allBiaya.data}
             refetch={allBiaya.refetch}
-            createMutate={useMutationBiaya.mutateAsync}
+            createMutate={useMutationNewBiaya.mutateAsync}
             deleteMutate={useMutationDeleteBiaya.mutateAsync}
             updateMutate={useMutationUpdateBiaya.mutateAsync}
           />
