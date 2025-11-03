@@ -3,7 +3,6 @@ import z from "zod";
 export const AgendaZodSchema = z.object({
   judul: z.string().nonempty({ error: "Judul harus diisi!" }),
   deskripsi: z.string().nonempty({ error: "Deskripsi harus diisi!" }),
-  tanggal: z.string().nonempty({ error: "Tanggal harus diisi!" }),
   waktu: z.string().nonempty({ error: "Waktu harus diisi!" }),
   pembicara: z
     .array(z.string().nonempty({ error: "Pembicara harus diisi!" }))
