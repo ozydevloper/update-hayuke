@@ -40,6 +40,18 @@ import {
   useQueryKategori,
   useUpdateKetegori,
 } from "@/lib/api/kategori/useKategori";
+import {
+  useDeleteTopik,
+  useNewTopik,
+  useQueryTopik,
+  useUpdateTopik,
+} from "@/lib/api/topik/useTopik";
+import {
+  useDeleteKota,
+  useNewKota,
+  useQueryKota,
+  useUpdateKota,
+} from "@/lib/api/kota/useKota";
 
 const AdminPage = () => {
   const allAgenda = useQuery({
@@ -55,66 +67,16 @@ const AdminPage = () => {
   const useMutationUpdateKategori = useUpdateKetegori();
 
   // {'Topik'}
-  const allTopik = useQuery({
-    queryKey: ["topik"],
-    queryFn: fetchAllTopik,
-    staleTime: 5 * 60 * 1000,
-  });
-  const useMutationNewTopik = useMutation({
-    mutationFn: async (req) => {
-      return await mutationNewTopik(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
-  const useMutationDeleteTopik = useMutation({
-    mutationFn: async (req) => {
-      return await mutationDeleteTopik(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
-  const useMutationUpdateTopik = useMutation({
-    mutationFn: async (req) => {
-      return await mutationUpdateTopik(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
+  const allTopik = useQueryTopik();
+  const useMutationNewTopik = useNewTopik();
+  const useMutationDeleteTopik = useDeleteTopik();
+  const useMutationUpdateTopik = useUpdateTopik();
 
   // {'KOta'}
-  const allKota = useQuery({
-    queryKey: ["kota"],
-    queryFn: fetchAllKota,
-    staleTime: 5 * 60 * 1000,
-  });
-  const useMutationNewKota = useMutation({
-    mutationFn: async (req) => {
-      return await mutationNewKota(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
-  const useMutationDeleteKota = useMutation({
-    mutationFn: async (req) => {
-      return await mutationDeleteKota(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
-  const useMutationUpdateKota = useMutation({
-    mutationFn: async (req) => {
-      return await mutationUpdateKota(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
+  const allKota = useQueryKota();
+  const useMutationNewKota = useNewKota();
+  const useMutationDeleteKota = useDeleteKota();
+  const useMutationUpdateKota = useUpdateKota();
 
   // {'Kalangan'}
   const allKalangan = useQuery({
