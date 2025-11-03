@@ -1,6 +1,5 @@
 "use server";
 import "dotenv/config";
-
 const ENDPOINT = `${process.env.BASE_API_URL}kategori`;
 
 export async function fetchAllKategori() {

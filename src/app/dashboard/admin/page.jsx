@@ -34,6 +34,12 @@ import {
 import TabelDashboard from "../_components/tabel.dashboard";
 import { fetchAllAgenda } from "@/lib/api/agenda/api";
 import { toast } from "sonner";
+import {
+  useDeleteKategori,
+  useNewKategori,
+  useQueryKategori,
+  useUpdateKetegori,
+} from "@/lib/api/kategori/useKategori";
 
 const AdminPage = () => {
   const allAgenda = useQuery({
@@ -43,35 +49,10 @@ const AdminPage = () => {
   });
 
   // {'Kategori'}
-  const allKategori = useQuery({
-    queryKey: ["kategori"],
-    queryFn: fetchAllKategori,
-    staleTime: 5 * 60 * 1000,
-  });
-  const useMutationNewKategori = useMutation({
-    mutationFn: async (req) => {
-      return await mutationNewKategori(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
-  const useMutationDeleteKategori = useMutation({
-    mutationFn: async (req) => {
-      return await mutationDeleteKategori(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
-  const useMutationUpdateKategori = useMutation({
-    mutationFn: async (req) => {
-      return await mutationUpdateKategori(req);
-    },
-    onError: (error) => {
-      toast.error(`${error.name}`);
-    },
-  });
+  const allKategori = useQueryKategori();
+  const useMutationNewKategori = useNewKategori();
+  const useMutationDeleteKategori = useDeleteKategori();
+  const useMutationUpdateKategori = useUpdateKetegori();
 
   // {'Topik'}
   const allTopik = useQuery({
