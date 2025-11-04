@@ -47,6 +47,8 @@ import { useQueryKalangan } from "@/lib/api/kalangan/useKalangan";
 import { useQueryBiaya } from "@/lib/api/biaya/useBiaya";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FieldError } from "@/components/ui/field";
+import { useNewAgenda } from "@/lib/api/agenda/useAgenda";
+import { toast } from "sonner";
 const TabelError = ({ refetch }) => {
   return (
     <div className="w-full h-64 max-h-64 flex flex-col items-center justify-center text-center gap-y-1">
@@ -78,6 +80,7 @@ const FormAgenda = ({
   isForm,
   setIsForm,
 }) => {
+  const useMutationNewAgenda = useNewAgenda();
   const form = useForm({
     defaultValues: {
       judul: "",
@@ -94,12 +97,28 @@ const FormAgenda = ({
       pelaksanaan: ["offline", "", "", "", ""],
       poster: "",
     },
-    validators: {
-      onSubmit: AgendaZodSchema,
-    },
+    // validators: {
+    //   onSubmit: AgendaZodSchema,
+    // },
 
     onSubmit: async ({ value }) => {
-      console.log(value);
+      const formData = new FormData();
+
+      for (let key in value) {
+        if (key == "poster") {
+          formData.append("poster", value[key][0]);
+        } else {
+          formData.append(key, value[key]);
+        }
+      }
+      toast.promise(
+        async () => await useMutationNewAgenda.mutateAsync(formData),
+        {
+          error: "Gagal membuat agenda!",
+          loading: "Sedang membuat agenda..",
+          success: "Berhasil membuat agenda!",
+        }
+      );
     },
   });
 
@@ -139,7 +158,7 @@ const FormAgenda = ({
                 name="poster"
                 validators={{
                   onChange: (files) => {
-                    if (!files.value[0].type.startsWith("image"))
+                    if (!files.value?.[0]?.type?.startsWith("image"))
                       return "Masukkan type image";
                   },
                 }}
