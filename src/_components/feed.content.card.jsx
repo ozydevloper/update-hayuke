@@ -4,7 +4,21 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { BadgeInfo, CalendarDays, Clock4, List, Tag } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
+
+const tanggalParse = (tanggalObjek) => {
+  const tanggal = new Date(tanggalObjek);
+  const options = {
+    weekday: "long", // Nama hari lengkap (contoh: Rabu)
+    year: "numeric", // Tahun lengkap (contoh: 2025)
+    month: "long", // Nama bulan lengkap (contoh: November)
+    day: "numeric", // Tanggal dalam angka (contoh: 5)
+  };
+
+  // Menggunakan toLocaleDateString() dengan lokal Indonesia (id-ID)
+  return tanggal.toLocaleDateString("id-ID", options);
+};
 
 const Description = ({ description }) => {
   const [isReadMore, setReadMore] = useState(false);
@@ -32,26 +46,33 @@ const Description = ({ description }) => {
   );
 };
 
-const FeedContentCard = () => {
-  const description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur
-            cum dolorem repellat qui commodi! Minima harum tenetur odit incidunt
-            assumenda sunt rem ipsum nemo quas saepe eligendi atque, ipsa
-            inventore. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque possimus alias inventore incidunt sequi, eius, ex veritatis repudiandae provident nisi ut iure qui cum ad dolor reprehenderit tenetur saepe soluta.`;
+const FeedContentCard = ({ data }) => {
+  const tanggal = tanggalParse(data.tanggal);
+
+  const poster = data.poster[0];
+  alert(poster);
+  const waktu = data.waktu;
+  const description = data.deskripsi;
 
   return (
     <Card className={"py-0 px-0 gap-y-0 my-5"}>
       <div className="flex items-center justify-between px-3 mt-2 mb-1">
         <div className="text-primary text-[0.600rem] sm:text-[0.670rem] font-bold flex items-center justify-center text-center gap-x-1">
           <CalendarDays className="size-3" />
-          <p>Selasa, 8 September 2025</p>
+          <p>{tanggal}</p>
         </div>
         <div className="text-primary text-[0.600rem] sm:text-[0.670rem] font-bold flex items-center justify-center text-center gap-x-1">
           <Clock4 className="size-3 " />
-          <p>10:00 - 10:12 WIB</p>
+          <p>{waktu}</p>
         </div>
       </div>
-      <div className="aspect-square sm:w-full sm:h-64">
-        <Skeleton className={"w-full h-full"} />
+      <div className="aspect-square sm:w-full sm:h-64 relative">
+        <Image
+          src={poster ?? ""}
+          alt={poster ?? "event_poster"}
+          fill
+          className="object-cover"
+        />
       </div>
       <div>
         <div className="flex items-center justify-between my-2 text-primary px-2">

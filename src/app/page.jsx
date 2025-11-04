@@ -1,10 +1,17 @@
+"use client";
 import FeedContentCard from "@/_components/feed.content.card";
 import Footer from "@/_components/footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useQueryAgenda } from "@/lib/api/agenda/useAgenda";
 import { Filter, Search } from "lucide-react";
+import LoadingFeed from "../_components/loading.feed";
+import FeedError from "../_components/feedError";
+import ZeroFeed from "../_components/ZeroFeed";
 
-export default async function Home() {
+export default function Home() {
+  const agendaHariIni = useQueryAgenda();
+
   return (
     <div>
       <div className="flex flex-col">
@@ -28,11 +35,19 @@ export default async function Home() {
         </div>
       </div>
       <div className="w-full">
-        <FeedContentCard />
-        <FeedContentCard />
-        <FeedContentCard />
-        <FeedContentCard />
-        <FeedContentCard />
+        {agendaHariIni.isPending |
+        agendaHariIni.isFetching |
+        agendaHariIni.isRefetching ? (
+          <LoadingFeed />
+        ) : agendaHariIni.isError ? (
+          <FeedError refetch={agendaHariIni.refetch} />
+        ) : agendaHariIni.isSuccess && agendaHariIni.data.length === 0 ? (
+          <ZeroFeed />
+        ) : (
+          agendaHariIni.data.map((e, i) => {
+            return <FeedContentCard key={i} data={e} />;
+          })
+        )}
       </div>
       <Footer />
     </div>
