@@ -1,7 +1,6 @@
 import { prisma } from "@/db/db";
 
 import { v2 as cloudinary } from "cloudinary";
-import { NextResponse } from "next/server";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -27,10 +26,17 @@ export const AgendaServices = {
         penyelenggara: data.penyelenggara,
         kategoriId: data.kategori,
         topikId: data.topik,
-        kotaId: data.kota,
+        kotaId: data.kota == "" && null,
         kalanganId: data.kalangan,
         biayaId: data.biaya,
         pelaksanaan: data.pelaksanaan,
+      },
+    });
+  },
+  async deleteAgenda(id) {
+    return await prisma.agenda.delete({
+      where: {
+        id: id,
       },
     });
   },

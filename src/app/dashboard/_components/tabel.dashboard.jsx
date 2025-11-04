@@ -105,7 +105,6 @@ const FormAgenda = ({
       const formData = new FormData();
 
       for (let key in value) {
-        console.log();
         if (key == "poster") {
           formData.append("poster", value[key][0]);
         } else {
@@ -143,7 +142,7 @@ const FormAgenda = ({
       <div className="mt-10 max-h-max">
         <Card className={`gap-0 px-2 py-0 max-w-80 w-80 md:max-w-96 md:w-96`}>
           <div className="text-sm font-bold flex items-center justify-between ml-4 my-5">
-            Form New Agenda{" "}
+            Form New Agenda
             <Button
               size={"icon"}
               variant={"outline"}
@@ -822,76 +821,76 @@ const TabelDashboard = ({
         <TabelLoading />
       ) : isError ? (
         <TabelError refetch={refetch} />
+      ) : isSuccess && data.length === 0 ? (
+        <span>Tidak ada agenda</span>
       ) : (
-        isSuccess && (
-          <Card className={`p-0 gap-0 w-full max-h-64`}>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead></TableHead>
-                  {Object.keys(data[0]).map((e, i) => {
-                    return <TableHead key={i}>{e}</TableHead>;
-                  })}
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {data.map((row, i) => {
-                  return (
-                    <TableRow key={i}>
-                      <TableCell>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button size={"icon-sm"} variant={"ghost"}>
-                              <Ellipsis />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent>
-                            <DropdownMenuLabel>{row.judul}</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem
-                              onClick={() => {
-                                alert(JSON.stringify(row));
-                              }}
-                            >
-                              Edit
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onClick={(e) => {
-                                e.preventDefault();
-                                toast.promise(
-                                  async () => {
-                                    useMutationDeleteAgenda.mutateAsync({
-                                      id: row.id,
-                                      publicId: row.poster[1],
-                                    });
-                                  },
-                                  {
-                                    loading: "Sedang menghapus agenda..",
-                                    error: "Gagal menghapus agenda!",
-                                    success: "Berhasul menghapus agenda!",
-                                  }
-                                );
-                              }}
-                            >
-                              Delete
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
-                      {Object.entries(row).map(([key, value], i) => {
-                        return (
-                          <TableCell key={i} className={"max-w-32 truncate"}>
-                            {value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
+        <Card className={`p-0 gap-0 w-full max-h-64`}>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead></TableHead>
+                {Object.keys(data[0]).map((e, i) => {
+                  return <TableHead key={i}>{e}</TableHead>;
                 })}
-              </TableBody>
-            </Table>
-          </Card>
-        )
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data.map((row, i) => {
+                return (
+                  <TableRow key={i}>
+                    <TableCell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button size={"icon-sm"} variant={"ghost"}>
+                            <Ellipsis />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuLabel>{row.judul}</DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            onClick={() => {
+                              alert(JSON.stringify(row));
+                            }}
+                          >
+                            Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={(e) => {
+                              e.preventDefault();
+                              toast.promise(
+                                async () => {
+                                  useMutationDeleteAgenda.mutateAsync({
+                                    id: row.id,
+                                    publicId: row.poster[1],
+                                  });
+                                },
+                                {
+                                  loading: "Sedang menghapus agenda..",
+                                  error: "Gagal menghapus agenda!",
+                                  success: "Berhasul menghapus agenda!",
+                                }
+                              );
+                            }}
+                          >
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                    {Object.entries(row).map(([key, value], i) => {
+                      return (
+                        <TableCell key={i} className={"max-w-32 truncate"}>
+                          {value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </Card>
       )}
     </div>
   );

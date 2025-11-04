@@ -13,8 +13,8 @@ export async function GET() {
 export async function DELETE(req = NextRequest) {
   try {
     const { id, publicId } = await req.json();
-    console.log(id);
-    console.log(publicId);
+    await AgendaImageRepository.DeleteByIdPublic(publicId);
+    await AgendaServices.deleteAgenda(id);
     return NextResponse.json({ message: "Success" });
   } catch (err) {
     return NextResponse.json(err);

@@ -13,7 +13,6 @@ export const AgendaZodSchema = z.object({
     .nonempty({ error: "Penyelenggara minimal satu, '-' untuk default!" }),
   kategori: z.string().nonempty({ error: "Kategori harus diisi!" }),
   topik: z.string().nonempty({ error: "Topik harus diisi!" }),
-  kota: z.string().nonempty({ error: "Kota harus diisi!" }),
   kalangan: z.string().nonempty({ error: "Kalangan harus diisi!" }),
   biaya: z.string().nonempty({ error: "Biaya harus diisi!" }),
   pelaksanaan: z
