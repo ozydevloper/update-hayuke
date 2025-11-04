@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   /* config options here */
-  reactCompiler: true,
+  reactCompiler: false,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         hostname: "res.cloudinary.com",

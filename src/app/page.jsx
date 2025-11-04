@@ -8,9 +8,37 @@ import { Filter, Search } from "lucide-react";
 import LoadingFeed from "../_components/loading.feed";
 import FeedError from "../_components/feedError";
 import ZeroFeed from "../_components/ZeroFeed";
+import { useQueryKategori } from "@/lib/api/kategori/useKategori";
+import { useQueryTopik } from "@/lib/api/topik/useTopik";
+import { useQueryKalangan } from "@/lib/api/kalangan/useKalangan";
+import { useQueryBiaya } from "@/lib/api/biaya/useBiaya";
+import { useQueryKota } from "@/lib/api/kota/useKota";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
   const agendaHariIni = useQueryAgenda();
+  const allKategori = useQueryKategori();
+  const allTopik = useQueryTopik();
+  const allKalangan = useQueryKalangan();
+  const allBiaya = useQueryBiaya();
+  const allKota = useQueryKota();
+
+  const optionState =
+    allBiaya.isPending ||
+    allKategori.isPending ||
+    allTopik.isPending ||
+    allKalangan.isPending ||
+    allKota.isPending;
+
+  const optionData = {
+    kategori: allKategori.data,
+    topik: allTopik.data,
+    kalangan: allKalangan.data,
+    kota: allKota.data,
+    biaya: allBiaya.data,
+  };
 
   return (
     <div>
@@ -35,9 +63,10 @@ export default function Home() {
         </div>
       </div>
       <div className="w-full">
-        {agendaHariIni.isPending |
-        agendaHariIni.isFetching |
-        agendaHariIni.isRefetching ? (
+        {agendaHariIni.isPending ||
+        agendaHariIni.isFetching ||
+        agendaHariIni.isRefetching ||
+        optionState ? (
           <LoadingFeed />
         ) : agendaHariIni.isError ? (
           <FeedError refetch={agendaHariIni.refetch} />
@@ -45,7 +74,14 @@ export default function Home() {
           <ZeroFeed />
         ) : (
           agendaHariIni.data.map((e, i) => {
-            return <FeedContentCard key={i} data={e} />;
+            return (
+              <FeedContentCard
+                key={i}
+                data={e}
+                optionData={optionData}
+                router={router}
+              />
+            );
           })
         )}
       </div>

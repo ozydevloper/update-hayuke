@@ -8,8 +8,8 @@ const useQueryAgenda = () => {
   return useQuery({
     queryKey: getQueryKeyAgenda(),
     queryFn: fetchAllAgenda,
-    staleTime: 5 * 60 * 1000,
-    gcTime: 10 * 60 * 1000,
+    staleTime: 15 * 60 * 1000,
+    gcTime: 20 * 60 * 1000,
   });
 };
 
