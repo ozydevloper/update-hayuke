@@ -47,7 +47,7 @@ import { useQueryKalangan } from "@/lib/api/kalangan/useKalangan";
 import { useQueryBiaya } from "@/lib/api/biaya/useBiaya";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FieldError } from "@/components/ui/field";
-import { useNewAgenda } from "@/lib/api/agenda/useAgenda";
+import { useDeleteAgenda, useNewAgenda } from "@/lib/api/agenda/useAgenda";
 import { toast } from "sonner";
 const TabelError = ({ refetch }) => {
   return (
@@ -97,18 +97,23 @@ const FormAgenda = ({
       pelaksanaan: ["offline", "", "", "", ""],
       poster: "",
     },
-    // validators: {
-    //   onSubmit: AgendaZodSchema,
-    // },
+    validators: {
+      onSubmit: AgendaZodSchema,
+    },
 
     onSubmit: async ({ value }) => {
       const formData = new FormData();
 
       for (let key in value) {
+        console.log();
         if (key == "poster") {
           formData.append("poster", value[key][0]);
         } else {
-          formData.append(key, value[key]);
+          if (typeof value[key] == "object") {
+            formData.append(key, JSON.stringify(value[key]));
+          } else {
+            formData.append(key, value[key]);
+          }
         }
       }
       toast.promise(
@@ -198,7 +203,7 @@ const FormAgenda = ({
                       <Input
                         className={"ring"}
                         id="judul"
-                        defaultValue={field.state.value}
+                        value={field.state.value ?? ""}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         placeholder={"Masukkan judul.."}
@@ -222,7 +227,7 @@ const FormAgenda = ({
                       </Label>
                       <Textarea
                         id="deskripsi"
-                        defaultValue={field.state.value}
+                        value={field.state.value ?? ""}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         placeholder={"Masukkan deskripsi.."}
@@ -250,7 +255,7 @@ const FormAgenda = ({
                             <div>
                               <Input
                                 className={"ring"}
-                                defaultValue={subField.state.value}
+                                value={subField.state.value ?? ""}
                                 onBlur={subField.handleBlur}
                                 onChange={(e) =>
                                   subField.handleChange(e.target.value)
@@ -310,7 +315,7 @@ const FormAgenda = ({
                             <div>
                               <Input
                                 className={"ring"}
-                                defaultValue={subField.state.value}
+                                value={subField.state.value ?? ""}
                                 onBlur={subField.handleBlur}
                                 onChange={(e) =>
                                   subField.handleChange(e.target.value)
@@ -367,7 +372,7 @@ const FormAgenda = ({
                     <Label>Kategori</Label>
                     <Select
                       onValueChange={field.handleChange}
-                      defaultValue={field.state.value}
+                      value={field.state.value ?? ""}
                     >
                       <SelectTrigger className={"ring"}>
                         <SelectValue placeholder={"Pilih kategori"} />
@@ -375,7 +380,7 @@ const FormAgenda = ({
                       <SelectContent>
                         {allKategori.map((kat, i) => {
                           return (
-                            <SelectItem key={i} value={kat.name}>
+                            <SelectItem key={i} value={kat.id}>
                               {kat.name}
                             </SelectItem>
                           );
@@ -397,7 +402,7 @@ const FormAgenda = ({
                     <Label>Topik</Label>
                     <Select
                       onValueChange={field.handleChange}
-                      defaultValue={field.state.value}
+                      value={field.state.value ?? ""}
                     >
                       <SelectTrigger className={"ring"}>
                         <SelectValue placeholder={"Pilih topik"} />
@@ -405,7 +410,7 @@ const FormAgenda = ({
                       <SelectContent>
                         {allTopik.map((top, i) => {
                           return (
-                            <SelectItem key={i} value={top.name}>
+                            <SelectItem key={i} value={top.id}>
                               {top.name}
                             </SelectItem>
                           );
@@ -427,7 +432,7 @@ const FormAgenda = ({
                     <Label>Kalangan</Label>
                     <Select
                       onValueChange={field.handleChange}
-                      defaultValue={field.state.value}
+                      value={field.state.value ?? ""}
                     >
                       <SelectTrigger className={"ring"}>
                         <SelectValue placeholder={"Pilih kalangan"} />
@@ -435,7 +440,7 @@ const FormAgenda = ({
                       <SelectContent>
                         {allKalangan.map((kal, i) => {
                           return (
-                            <SelectItem key={i} value={kal.name}>
+                            <SelectItem key={i} value={kal.id}>
                               {kal.name}
                             </SelectItem>
                           );
@@ -457,7 +462,7 @@ const FormAgenda = ({
                     <Label>Biaya</Label>
                     <Select
                       onValueChange={field.handleChange}
-                      defaultValue={field.state.value}
+                      value={field.state.value ?? ""}
                     >
                       <SelectTrigger className={"ring"}>
                         <SelectValue placeholder={"Pilih biaya"} />
@@ -465,7 +470,7 @@ const FormAgenda = ({
                       <SelectContent>
                         {allBiaya.map((bia, i) => {
                           return (
-                            <SelectItem key={i} value={bia.name}>
+                            <SelectItem key={i} value={bia.id}>
                               {bia.name}
                             </SelectItem>
                           );
@@ -481,7 +486,7 @@ const FormAgenda = ({
                   </div>
                 )}
               </form.Field>
-              <form.Field name="Tanggal">
+              <form.Field name="tanggal">
                 {(field) => {
                   return (
                     <div className="w-full h-full">
@@ -492,7 +497,7 @@ const FormAgenda = ({
                         type={"date"}
                         className={"ring"}
                         id="tanggal"
-                        defaultValue={field.state.value}
+                        value={field.state.value ?? ""}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         placeholder={"Masukkan tanggal.."}
@@ -516,7 +521,7 @@ const FormAgenda = ({
                       <Input
                         className={"ring"}
                         id="waktu"
-                        defaultValue={field.state.value}
+                        value={field.state.value ?? ""}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         placeholder={"Masukkan waktu.."}
@@ -539,8 +544,8 @@ const FormAgenda = ({
                         <div className="flex w-full items-center justify-center flex-col">
                           <div>
                             <RadioGroup
+                              value={pelaksanaanType.state.value}
                               onValueChange={pelaksanaanType.handleChange}
-                              defaultValue={pelaksanaanType.state.value}
                             >
                               <div className={"flex gap-x-5 my-2"}>
                                 <div className="flex items-center gap-x-1">
@@ -570,14 +575,14 @@ const FormAgenda = ({
                                   <Label>Kota</Label>
                                   <Select
                                     onValueChange={fieldKota.handleChange}
-                                    defaultValue={fieldKota.state.value}
+                                    value={fieldKota.state.value ?? ""}
                                   >
                                     <SelectTrigger className={"ring"}>
                                       <SelectValue placeholder="Pilih kota" />
                                     </SelectTrigger>
                                     <SelectContent>
                                       {allKota.map((kota, i) => (
-                                        <SelectItem key={i} value={kota.name}>
+                                        <SelectItem key={i} value={kota.id}>
                                           {kota.name}
                                         </SelectItem>
                                       ))}
@@ -606,7 +611,7 @@ const FormAgenda = ({
                                   <Input
                                     className={"ring"}
                                     id="p1"
-                                    defaultValue={p1.state.value}
+                                    value={p1.state.value ?? ""}
                                     onBlur={p1.handleBlur}
                                     onChange={(e) =>
                                       p1.handleChange(e.target.value)
@@ -640,7 +645,7 @@ const FormAgenda = ({
                                   <Textarea
                                     className={"ring w-full"}
                                     id="p2"
-                                    defaultValue={p2.state.value}
+                                    value={p2.state.value ?? ""}
                                     onBlur={p2.handleBlur}
                                     onChange={(e) =>
                                       p2.handleChange(e.target.value)
@@ -675,7 +680,7 @@ const FormAgenda = ({
                                     type={"url"}
                                     className={"ring w-full"}
                                     id="p3"
-                                    defaultValue={p3.state.value}
+                                    value={p3.state.value ?? ""}
                                     onBlur={p3.handleBlur}
                                     onChange={(e) =>
                                       p3.handleChange(e.target.value)
@@ -705,7 +710,7 @@ const FormAgenda = ({
                                   <Textarea
                                     className={"ring w-full"}
                                     id="p4"
-                                    defaultValue={p4.state.value}
+                                    value={p4.state.value ?? ""}
                                     onBlur={p4.handleBlur}
                                     onChange={(e) =>
                                       p4.handleChange(e.target.value)
@@ -731,23 +736,10 @@ const FormAgenda = ({
             <div className="flex items-center justify-start">
               <Button type="submit">Submit</Button>
               <Button
+                type="button"
                 variant={"outline"}
-                onClick={(e) => {
-                  e.preventDefault();
-                  form.reset({
-                    judul: "",
-                    deskripsi: "",
-                    tanggal: "",
-                    waktu: "",
-                    pembicara: [""],
-                    penyelenggara: [""],
-                    kategori: "",
-                    topik: "",
-                    kota: "",
-                    kalangan: "",
-                    biaya: "",
-                    pelaksanaan: ["offline", "", "", "", ""],
-                  });
+                onClick={() => {
+                  form.reset();
                 }}
               >
                 Clear
@@ -768,8 +760,10 @@ const TabelDashboard = ({
   refetch,
   isRefetching,
 }) => {
-  const inputDateRef = useRef(null);
+  // const inputDateRef = useRef(null);
   const [isForm, setIsForm] = useState(false);
+
+  const useMutationDeleteAgenda = useDeleteAgenda();
 
   const allKategori = useQueryKategori();
   const allTopik = useQueryTopik();
@@ -797,14 +791,14 @@ const TabelDashboard = ({
         />
       )}
       <div className="font-bold text-sm my-5">Tabel Agenda</div>
-      <p className="text-[0.680rem]">Filter dengan Tanggal</p>
+      {/* <p className="text-[0.680rem]">Filter dengan Tanggal</p>
       <div className="flex gap-x-1 items-center justify-center">
         <Button variant={"outline"} size={"icon-sm"}>
           <CalendarDays />
         </Button>
         <Input placeholder="filter" type={"date"} ref={inputDateRef} />
         <Button>Apply</Button>
-      </div>
+      </div> */}
       <div className="flex my-2 justify-center gap-x-1">
         <div className="w-full">
           <Button
@@ -861,7 +855,26 @@ const TabelDashboard = ({
                             >
                               Edit
                             </DropdownMenuItem>
-                            <DropdownMenuItem>Delete</DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={(e) => {
+                                e.preventDefault();
+                                toast.promise(
+                                  async () => {
+                                    useMutationDeleteAgenda.mutateAsync({
+                                      id: row.id,
+                                      publicId: row.poster[1],
+                                    });
+                                  },
+                                  {
+                                    loading: "Sedang menghapus agenda..",
+                                    error: "Gagal menghapus agenda!",
+                                    success: "Berhasul menghapus agenda!",
+                                  }
+                                );
+                              }}
+                            >
+                              Delete
+                            </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </TableCell>

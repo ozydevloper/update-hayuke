@@ -33,13 +33,10 @@ import {
   useQueryBiaya,
   useUpdateBiaya,
 } from "@/lib/api/biaya/useBiaya";
+import { useQueryAgenda } from "@/lib/api/agenda/useAgenda";
 
 const AdminPage = () => {
-  const allAgenda = useQuery({
-    queryKey: ["allagenda"],
-    queryFn: fetchAllAgenda,
-    staleTime: 5 * 60 * 1000,
-  });
+  const allAgenda = useQueryAgenda();
 
   // {'Kategori'}
   const allKategori = useQueryKategori();

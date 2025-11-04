@@ -3,9 +3,14 @@ import "dotenv/config";
 const ENDPOINT = `${process.env.BASE_API_URL}agenda`;
 
 export async function fetchAllAgenda() {
-  const res = await fetch(`${ENDPOINT}`);
-  const res_json = await res.json();
-  return res_json;
+  return await fetch(`${ENDPOINT}`).then((e) => e.json());
+}
+
+export async function mutationDeleteAgenda(id) {
+  return await fetch(`${ENDPOINT}`, {
+    method: "DELETE",
+    body: JSON.stringify(id),
+  }).then((e) => e.json());
 }
 
 export async function mutationNewAgenda(newAgenda) {

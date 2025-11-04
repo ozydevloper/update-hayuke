@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchAllAgenda, mutationNewAgenda } from "./api";
+import { fetchAllAgenda, mutationDeleteAgenda, mutationNewAgenda } from "./api";
 import { toast } from "sonner";
 
 const getQueryKeyAgenda = () => ["agenda"];
@@ -27,4 +27,18 @@ const useNewAgenda = () => {
   });
 };
 
-export { useQueryAgenda, useNewAgenda };
+const useDeleteAgenda = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (req) => {
+      return await mutationDeleteAgenda(req);
+    },
+    onError: (error) => {
+      toast.error(`${error.message}`);
+    },
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: getQueryKeyAgenda() }),
+  });
+};
+
+export { useQueryAgenda, useNewAgenda, useDeleteAgenda };
