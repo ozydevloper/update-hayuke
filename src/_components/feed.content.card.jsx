@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useModeFeed } from "@/lib/globalVariabelZustand";
 import { tanggalParse } from "@/lib/tanggalParse";
 import { BadgeInfo, CalendarDays, Clock4, List, Tag } from "lucide-react";
 import Image from "next/image";
@@ -35,6 +36,7 @@ const Description = ({ description }) => {
 };
 
 const FeedContentCard = ({ data, optionData, router }) => {
+  const { stateMode } = useModeFeed();
   const id = data.id;
   const judul = data.judul;
   const tanggal = tanggalParse(data.tanggal);
@@ -101,7 +103,7 @@ const FeedContentCard = ({ data, optionData, router }) => {
           </div>
           <Button
             className={"w-full"}
-            onClick={() => router.push(`/detail/home/${id}`)}
+            onClick={() => router.push(`/detail/${stateMode}/${id}`)}
           >
             Lihat detail
           </Button>

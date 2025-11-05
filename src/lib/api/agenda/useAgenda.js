@@ -3,11 +3,20 @@ import { fetchAllAgenda, mutationDeleteAgenda, mutationNewAgenda } from "./api";
 import { toast } from "sonner";
 
 const getQueryKeyAgenda = () => ["agenda"];
+const getQueryKeyAgendaHariIni = () => ["agenda"];
 
 const useQueryAgenda = () => {
   return useQuery({
     queryKey: getQueryKeyAgenda(),
     queryFn: fetchAllAgenda,
+    staleTime: 15 * 60 * 1000,
+    gcTime: 20 * 60 * 1000,
+  });
+};
+
+const useQueryHariIni = () => {
+  return useQuery({
+    queryKey: getQueryKeyAgendaHariIni(),
     staleTime: 15 * 60 * 1000,
     gcTime: 20 * 60 * 1000,
   });

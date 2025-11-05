@@ -14,11 +14,14 @@ import { useQueryKalangan } from "@/lib/api/kalangan/useKalangan";
 import { useQueryBiaya } from "@/lib/api/biaya/useBiaya";
 import { useQueryKota } from "@/lib/api/kota/useKota";
 import { useRouter } from "next/navigation";
+import { useModeFeed } from "@/lib/globalVariabelZustand";
+import FeedControl from "./dashboard/_components/feedControl";
 
 export default function Home() {
+  const { stateMode, setStateMode } = useModeFeed();
   const router = useRouter();
 
-  const agendaHariIni = useQueryAgenda();
+  const allAgenda = useQueryAgenda();
   const allKategori = useQueryKategori();
   const allTopik = useQueryTopik();
   const allKalangan = useQueryKalangan();
@@ -49,40 +52,51 @@ export default function Home() {
             <Button size={"icon"} variant={"outline"}>
               <Filter />
             </Button>
-            <Button className={"font-bold items-center"}>
+            <Button
+              onClick={() => setStateMode("search")}
+              variant={stateMode === "search" ? "default" : "outline"}
+              className={"font-bold items-center"}
+            >
               <Search />
               Cari
             </Button>
           </div>
         </div>
         <div className="flex flex-col md:flex-row my-3 gap-y-1 items-center justify-between">
-          <Button className="md:w-[49%] w-full">Event Hari ini</Button>
-          <Button variant="outline" className={`md:w-[49%] w-full`}>
+          <Button
+            onClick={() => setStateMode("home")}
+            variant={stateMode === "home" ? "default" : "outline"}
+            className="md:w-[49%] w-full"
+          >
+            Event Hari ini
+          </Button>
+          <Button
+            onClick={() => setStateMode("upcoming")}
+            variant={
+              stateMode === "upcoming" ? "default" : "outline" && "outline"
+            }
+            className={`md:w-[49%] w-full`}
+          >
             Event Upcoming
           </Button>
         </div>
       </div>
       <div className="w-full">
-        {agendaHariIni.isPending ||
-        agendaHariIni.isFetching ||
-        agendaHariIni.isRefetching ||
+        {allAgenda.isPending ||
+        allAgenda.isFetching ||
+        allAgenda.isRefetching ||
         optionState ? (
           <LoadingFeed />
-        ) : agendaHariIni.isError ? (
-          <FeedError refetch={agendaHariIni.refetch} />
-        ) : agendaHariIni.isSuccess && agendaHariIni.data.length === 0 ? (
+        ) : allAgenda.isError ? (
+          <FeedError refetch={allAgenda.refetch} />
+        ) : allAgenda.isSuccess && allAgenda.data.length === 0 ? (
           <ZeroFeed />
         ) : (
-          agendaHariIni.data.map((e, i) => {
-            return (
-              <FeedContentCard
-                key={i}
-                data={e}
-                optionData={optionData}
-                router={router}
-              />
-            );
-          })
+          <FeedControl
+            data={allAgenda.data}
+            optionData={optionData}
+            router={router}
+          />
         )}
       </div>
       <Footer />

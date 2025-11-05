@@ -14,7 +14,6 @@ export const AgendaServices = {
   },
 
   async createAgenda(data) {
-    console.log(data);
     await prisma.agenda.create({
       data: {
         poster: data.poster,
@@ -26,7 +25,7 @@ export const AgendaServices = {
         penyelenggara: data.penyelenggara,
         kategoriId: data.kategori,
         topikId: data.topik,
-        kotaId: data.kota == "" && null,
+        kotaId: data.kota == "" ? null : data.kota,
         kalanganId: data.kalangan,
         biayaId: data.biaya,
         pelaksanaan: data.pelaksanaan,
