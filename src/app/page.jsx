@@ -57,15 +57,16 @@ export default function Home() {
         <div className="flex items-center gap-x-1">
           <Input placeholder="Cari judul agenda" />
           <div className="flex items-center gap-x-1">
-            <Button size={"icon"} variant={"outline"}>
-              <Filter
-                onClick={() => setIsFilter(!isFilter)}
-                disabled={optionState}
-              />
+            <Button
+              size={"icon"}
+              variant={"outline"}
+              onClick={() => setIsFilter(!isFilter)}
+              disabled={optionState}
+            >
+              <Filter />
             </Button>
             <Button
               onClick={() => setStateMode("search")}
-              variant={stateMode === "search" ? "default" : "outline"}
               className={"font-bold items-center"}
             >
               <Search />

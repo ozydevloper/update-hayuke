@@ -13,11 +13,17 @@ import { useQueryTopik } from "@/lib/api/topik/useTopik";
 import { X } from "lucide-react";
 
 const FIlterTab = ({ optionData, isFilter, onClick }) => {
+  document.addEventListener("click", (e) => {
+    if (e.target.id === "close") {
+      onClick();
+    }
+  });
   return (
     <div
+      id="close"
       className={`${
         isFilter ? "translate-y-0" : "translate-y-full"
-      } w-full h-dvh fixed z-50 bg-black/25 inset-0 flex items-end justify-center`}
+      } w-full h-dvh fixed z-50 inset-0 flex items-end justify-center transition-all ease-in-out duration-300`}
     >
       <div className="w-full bg-background md:max-w-md">
         <div className="flex justify-between items-center w-full px-5 my-4">

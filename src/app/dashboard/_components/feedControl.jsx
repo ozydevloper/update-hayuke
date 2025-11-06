@@ -1,6 +1,8 @@
 const { default: FeedContentCard } = require("@/_components/feed.content.card");
 const { useModeFeed } = require("@/lib/globalVariabelZustand");
 
+const feedSearch = (data) => {};
+
 const feedUpcoming = (data) => {
   const today = new Date();
   const todayYMD = new Date(
@@ -26,7 +28,7 @@ const feedHariIni = (data) => {
   );
 };
 
-const FeedControl = ({ data, optionData, router }) => {
+const FeedControl = ({ data, optionData, router, optionSearch }) => {
   const { stateMode } = useModeFeed();
 
   switch (stateMode) {
@@ -58,6 +60,9 @@ const FeedControl = ({ data, optionData, router }) => {
           );
         });
       }
+    case "search":
+      const agendaSearch = feedSearch(optionSearch);
+      console.log(agendaSearch);
   }
 };
 export default FeedControl;
