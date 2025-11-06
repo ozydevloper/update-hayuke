@@ -7,15 +7,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useQueryBiaya } from "@/lib/api/biaya/useBiaya";
+import { useQueryKota } from "@/lib/api/kota/useKota";
+import { useQueryTopik } from "@/lib/api/topik/useTopik";
 import { X } from "lucide-react";
 
-const FIlterTab = () => {
+const FIlterTab = ({ optionData, isFilter, onClick }) => {
   return (
-    <div className="w-full h-dvh fixed z-50 bg-black/25 inset-0 flex items-end justify-center">
+    <div
+      className={`${
+        isFilter ? "translate-y-0" : "translate-y-full"
+      } w-full h-dvh fixed z-50 bg-black/25 inset-0 flex items-end justify-center`}
+    >
       <div className="w-full bg-background md:max-w-md">
         <div className="flex justify-between items-center w-full px-5 my-4">
           <div className="text-sm font-bold">Filter tab</div>
-          <Button size="icon">
+          <Button size="icon" onClick={onClick}>
             <X />
           </Button>
         </div>

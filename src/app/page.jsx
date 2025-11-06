@@ -21,7 +21,7 @@ import FIlterTab from "@/_components/FilterTab";
 
 export default function Home() {
   const { stateMode, setStateMode } = useModeFeed();
-  const [isFIlter, setIsFIlter] = useState(false);
+  const [isFilter, setIsFilter] = useState(false);
   const router = useRouter();
 
   const allAgenda = useQueryAgenda();
@@ -48,13 +48,20 @@ export default function Home() {
 
   return (
     <div>
-      <FIlterTab />
+      <FIlterTab
+        optionData={optionData}
+        isFilter={isFilter}
+        onClick={() => setIsFilter(!isFilter)}
+      />
       <div className="flex flex-col">
         <div className="flex items-center gap-x-1">
           <Input placeholder="Cari judul agenda" />
           <div className="flex items-center gap-x-1">
             <Button size={"icon"} variant={"outline"}>
-              <Filter onClick={() => setIsFIlter(!isFIlter)} />
+              <Filter
+                onClick={() => setIsFilter(!isFilter)}
+                disabled={optionState}
+              />
             </Button>
             <Button
               onClick={() => setStateMode("search")}
