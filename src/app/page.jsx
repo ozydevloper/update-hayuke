@@ -16,9 +16,12 @@ import { useQueryKota } from "@/lib/api/kota/useKota";
 import { useRouter } from "next/navigation";
 import { useModeFeed } from "@/lib/globalVariabelZustand";
 import FeedControl from "./dashboard/_components/feedControl";
+import { useState } from "react";
+import FIlterTab from "@/_components/FilterTab";
 
 export default function Home() {
   const { stateMode, setStateMode } = useModeFeed();
+  const [isFIlter, setIsFIlter] = useState(false);
   const router = useRouter();
 
   const allAgenda = useQueryAgenda();
@@ -45,12 +48,13 @@ export default function Home() {
 
   return (
     <div>
+      <FIlterTab />
       <div className="flex flex-col">
         <div className="flex items-center gap-x-1">
           <Input placeholder="Cari judul agenda" />
           <div className="flex items-center gap-x-1">
             <Button size={"icon"} variant={"outline"}>
-              <Filter />
+              <Filter onClick={() => setIsFIlter(!isFIlter)} />
             </Button>
             <Button
               onClick={() => setStateMode("search")}

@@ -856,22 +856,20 @@ const TabelDashboard = ({
                             Edit
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            onClick={(e) => {
-                              e.preventDefault();
+                            onClick={() =>
                               toast.promise(
-                                async () => {
+                                async () =>
                                   useMutationDeleteAgenda.mutateAsync({
                                     id: row.id,
                                     publicId: row.poster[1],
-                                  });
-                                },
+                                  }),
                                 {
-                                  loading: "Sedang menghapus agenda..",
-                                  error: "Gagal menghapus agenda!",
-                                  success: "Berhasul menghapus agenda!",
+                                  loading: "Sedang menghapus...",
+                                  error: "Gagal menghapus!",
+                                  success: "Berhasil menghapus!",
                                 }
-                              );
-                            }}
+                              )
+                            }
                           >
                             Delete
                           </DropdownMenuItem>

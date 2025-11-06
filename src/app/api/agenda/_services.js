@@ -43,8 +43,8 @@ export const AgendaServices = {
 
 export const AgendaImageRepository = {
   async DeleteByIdPublic(public_id) {
-    await cloudinary.uploader.destroy(public_id);
-    return Response.json({ message: "success" });
+    console.log(public_id);
+    return await cloudinary.uploader.destroy(public_id);
   },
   async UploadImage(poster) {
     const fileImage = poster;

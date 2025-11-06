@@ -12,12 +12,12 @@ export async function GET() {
 
 export async function DELETE(req = NextRequest) {
   try {
-    const { id, publicId } = await req.json();
-    await AgendaImageRepository.DeleteByIdPublic(publicId);
-    await AgendaServices.deleteAgenda(id);
+    const body = await req.json();
+    await AgendaImageRepository.DeleteByIdPublic(body.publicId);
+    await AgendaServices.deleteAgenda(body.id);
     return NextResponse.json({ message: "Success" });
   } catch (err) {
-    return NextResponse.json(err);
+    return NextResponse.error(err);
   }
 }
 

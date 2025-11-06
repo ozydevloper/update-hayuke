@@ -36,6 +36,7 @@ const Description = ({ description }) => {
 };
 
 const FeedContentCard = ({ data, optionData, router }) => {
+  const [preview, setPreview] = useState(false);
   const { stateMode } = useModeFeed();
   const id = data.id;
   const judul = data.judul;
@@ -67,12 +68,17 @@ const FeedContentCard = ({ data, optionData, router }) => {
         </div>
       </div>
       <div className="h-72 sm:w-full max-h-72 relative overflow-hidden">
-        <Image
-          src={poster ?? ""}
-          alt={poster ?? "event_poster"}
-          fill
-          className="object-cover"
-        />
+        <div className={`${preview ? "fixed inset-0 z-50" : ""}`}>
+          <Image
+            onClick={() => setPreview(!preview)}
+            src={poster ?? ""}
+            alt={poster ?? "event_poster"}
+            fill
+            className={`${
+              preview ? "object-contain bg-black/25" : "object-cover"
+            } `}
+          />
+        </div>
       </div>
       <div>
         <div className="flex items-center justify-between my-2 text-primary px-2">
