@@ -8,7 +8,11 @@ const nextConfig = {
       {
         hostname: "res.cloudinary.com",
       },
+      {
+        hostname: 'lh3.googleusercontent.com',
+      }
     ],
+    
   },
   experimental: {
     serverActions: {

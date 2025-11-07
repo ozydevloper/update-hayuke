@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Logo from "./logo";
+import { useSession } from "next-auth/react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,13 +13,25 @@ import {
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import login from "@/lib/auth/login";
+import { useRouter } from "next/navigation";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import Image from "next/image";
+import { AvatarFallback } from "@radix-ui/react-avatar";
+import { logout } from "@/lib/auth/logout";
+import { useEffect, useState } from "react";
 
 const TopBar = () => {
   const { setTheme } = useTheme();
+  const router = useRouter()
+  const {data: session} = useSession()
+
   return (
     <div className="w-full h-9 sticky top-0 left-0 right-0 flex items-center justify-between px-3 py-5 border-b bg-background z-50">
       <Logo />
       <div className="flex items-center gap-x-2">
+        {
+          session && session.user.role === "ADMIN" && <Button size={'sm'} variant={'ghost'} className={'font-bold text-sm'} onClick={() => router.push("/dashboard/admin")}>Admin</Button>
+        }
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="icon">
@@ -44,12 +57,22 @@ const TopBar = () => {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button size={"sm"}>Masuk</Button>
+            {
+
+              session ? 
+                <Avatar>
+                  <AvatarImage src={session?.user?.image} alt="hayuke-avatar" />
+                  <AvatarFallback>H</AvatarFallback>                    
+                </Avatar>
+               : <Button size={"sm"}>Masuk</Button>
+
+            }
+            
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuLabel>Akun</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => login()}>Log-in</DropdownMenuItem>
+            {session ?<DropdownMenuItem onClick={() => logout()}>Log-out</DropdownMenuItem> : <DropdownMenuItem onClick={() => login()}>Log-in</DropdownMenuItem>}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
