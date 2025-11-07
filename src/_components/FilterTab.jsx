@@ -11,24 +11,34 @@ import { useQueryBiaya } from "@/lib/api/biaya/useBiaya";
 import { useQueryKota } from "@/lib/api/kota/useKota";
 import { useQueryTopik } from "@/lib/api/topik/useTopik";
 import { X } from "lucide-react";
+import { useEffect } from "react";
 
 const FIlterTab = ({ optionData, isFilter, onClick }) => {
-  document.addEventListener("click", (e) => {
-    if (e.target.id === "close") {
-      onClick();
+
+  useEffect(() => {
+    const handleClick = (e)=> {
+      if (e.target.id === 'close'){
+        onClick()
+      }
     }
-  });
+    document.addEventListener('click', handleClick)
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+
+  }, [onClick])
+
   return (
     <div
       id="close"
       className={`${
-        isFilter ? "translate-y-0" : "translate-y-full"
-      } w-full h-dvh fixed z-50 inset-0 flex items-end justify-center transition-all ease-in-out duration-300`}
+        isFilter ? "" : "translate-y-full"
+      } translate-y-0 w-full h-dvh fixed z-50 inset-0 flex items-end justify-center transition-all ease-in-out duration-500`}
     >
-      <div className="w-full bg-background md:max-w-md">
+      <div className="w-full bg-background md:max-w-md mb-5">
         <div className="flex justify-between items-center w-full px-5 my-4">
           <div className="text-sm font-bold">Filter tab</div>
-          <Button size="icon" onClick={onClick}>
+          <Button size="icon" id="close">
             <X />
           </Button>
         </div>

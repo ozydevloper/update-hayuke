@@ -22,7 +22,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "/home/ozy/HAYUKE/hayuke/generated/prisma",
+      "value": "/home/ozy/Project/HAYUKE/hayuke/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -36,7 +36,7 @@ const config: runtime.GetPrismaClientConfig = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/ozy/HAYUKE/hayuke/prisma/schema.prisma",
+    "sourceFilePath": "/home/ozy/Project/HAYUKE/hayuke/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../prisma",
