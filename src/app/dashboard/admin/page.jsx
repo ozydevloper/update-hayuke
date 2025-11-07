@@ -1,8 +1,6 @@
 "use client";
 import ItemDashboard from "../_components/item.dashboard";
-import { useQuery } from "@tanstack/react-query";
 import TabelDashboard from "../_components/tabel.dashboard";
-import { fetchAllAgenda } from "@/lib/api/agenda/api";
 import {
   useDeleteKategori,
   useNewKategori,
@@ -34,8 +32,19 @@ import {
   useUpdateBiaya,
 } from "@/lib/api/biaya/useBiaya";
 import { useQueryAgenda } from "@/lib/api/agenda/useAgenda";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 const AdminPage = () => {
+  const { data: session } = useSession();
+  if (!session) {
+    redirect("/");
+  }
+  if (session.user.role !== "ADMIN") {
+    redirect("/");
+  }
+
+  // {'Agenda'}
   const allAgenda = useQueryAgenda();
 
   // {'Kategori'}

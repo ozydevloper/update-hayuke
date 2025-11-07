@@ -2,7 +2,19 @@
 import Footer from "@/_components/footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useQueryAgenda } from "@/lib/api/agenda/useAgenda";
 import { useQueryBiaya } from "@/lib/api/biaya/useBiaya";
 import { useQueryKalangan } from "@/lib/api/kalangan/useKalangan";
@@ -13,7 +25,8 @@ import { tanggalParse } from "@/lib/tanggalParse";
 import { Share2Icon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
+import "dotenv/config";
 
 const DetailFeedLayout = ({ children }) => {
   return <div className="h-dvh relative flex flex-col gap-y-1">{children}</div>;
@@ -21,22 +34,24 @@ const DetailFeedLayout = ({ children }) => {
 
 const ShareButton = () => {
   return (
-<Dialog>
-  <DialogTrigger asChild><Button className={'fixed -right-5 -top-2  md:absolute'}>
-    <Share2Icon/>
-    </Button></DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Are you absolutely sure?</DialogTitle>
-      <DialogDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
-      </DialogDescription>
-    </DialogHeader>
-  </DialogContent>
-</Dialog>
-  )
-}
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button className={"fixed -right-5 -top-2  md:absolute"}>
+          <Share2Icon />
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogDescription>
+            This action cannot be undone. This will permanently delete your
+            account and remove your data from our servers.
+          </DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  );
+};
 
 const PelaksanaanOffline = ({ kota, pelaksanaan }) => {
   const namaVia = pelaksanaan[1];
@@ -108,6 +123,13 @@ const Pelaksanaan = ({ pelaksanaan, kota }) => {
 };
 
 const Detail = ({ data, optionData }) => {
+  if (!!!data) {
+    redirect("/");
+  }
+
+  const pathname = usePathname();
+  const fullUrl = `${window.location.origin}${pathname}`; // Combine origin with asPath
+
   const judul = data.judul;
   const deskripsi = data.deskripsi;
   const tanggal = tanggalParse(data.tanggal);
@@ -128,7 +150,7 @@ const Detail = ({ data, optionData }) => {
   return (
     <div className="flex flex-col">
       <Card className={`w-full h-full gap-0 px-3 py-3 relative`}>
-        <ShareButton/>
+        <ShareButton />
         <div className="w-full font-bold text-md justify-center items-center text-center text-primary mt-2 mb-3">
           {judul}
         </div>
@@ -171,6 +193,32 @@ const Detail = ({ data, optionData }) => {
                 <Pelaksanaan pelaksanaan={pelaksanaan} kota={kota} />
               </div>
             </Card>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button>Share</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Share link</DialogTitle>
+                  <DialogDescription>
+                    Bagikan agenda ini ke siapapun
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="flex items-center gap-2">
+                  <div className="grid flex-1 gap-2">
+                    <Label htmlFor="link" className="sr-only">
+                      Link
+                    </Label>
+                    <Input id="link" defaultValue={fullUrl} readOnly />
+                  </div>
+                </div>
+                <DialogFooter className="sm:justify-start">
+                  <DialogClose asChild>
+                    <Button type="button">Close</Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
             <div className="aspect-square relative">
               <Image
                 src={poster}
@@ -206,7 +254,6 @@ const DetailAgenda = ({ params }) => {
   if (params.agenda_id.length !== 2) {
     redirect("/");
   }
-  const mode = params.agenda_id[0];
   const id = params.agenda_id[1];
 
   const agendaHariIni = useQueryAgenda();
@@ -237,7 +284,7 @@ const DetailAgenda = ({ params }) => {
       agendaHariIni.isFetching ||
       agendaHariIni.isRefetching ||
       optionState ? (
-        <span>Loading uey</span>
+        <Skeleton className={`w-full h-dvh`} />
       ) : agendaHariIni.isError ? (
         <span>Error euys</span>
       ) : (
