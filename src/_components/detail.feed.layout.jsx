@@ -32,27 +32,6 @@ const DetailFeedLayout = ({ children }) => {
   return <div className="h-dvh relative flex flex-col gap-y-1">{children}</div>;
 };
 
-const ShareButton = () => {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button className={"fixed -right-5 -top-2  md:absolute"}>
-          <Share2Icon />
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
-  );
-};
-
 const PelaksanaanOffline = ({ kota, pelaksanaan }) => {
   const namaVia = pelaksanaan[1];
   const viaDetail = pelaksanaan[2];
@@ -150,7 +129,6 @@ const Detail = ({ data, optionData }) => {
   return (
     <div className="flex flex-col">
       <Card className={`w-full h-full gap-0 px-3 py-3 relative`}>
-        <ShareButton />
         <div className="w-full font-bold text-md justify-center items-center text-center text-primary mt-2 mb-3">
           {judul}
         </div>
