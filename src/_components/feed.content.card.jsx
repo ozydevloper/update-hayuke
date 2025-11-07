@@ -75,7 +75,9 @@ const FeedContentCard = ({ data, optionData, router }) => {
             alt={poster ?? "event_poster"}
             fill
             className={`${
-              preview ? "object-contain bg-black/25" : "object-cover"
+              preview
+                ? "object-contain bg-black/25"
+                : "object-contain bg-black/10"
             } `}
           />
         </div>

@@ -1,6 +1,6 @@
 import crypto from "crypto";
-import "dotenv/config"
-const SECRET = process.env.SECRET_TOKEN
+import "dotenv/config";
+const SECRET = process.env.SECRET_TOKEN;
 
 // 🔐 Generate signature di client
 export function generateSignature() {
@@ -13,7 +13,7 @@ export function generateSignature() {
 }
 
 // 🔎 Verifikasi signature di server
-export function verifySignature(encoded, maxAgeMs = 10_000) {
+export function verifySignature(encoded, maxAgeMs = 60_000) {
   try {
     const decoded = Buffer.from(encoded, "base64").toString("utf-8");
     const [timestamp, signature] = decoded.split(".");

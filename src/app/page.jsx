@@ -15,8 +15,8 @@ import { useQueryBiaya } from "@/lib/api/biaya/useBiaya";
 import { useQueryKota } from "@/lib/api/kota/useKota";
 import { useRouter } from "next/navigation";
 import { useModeFeed } from "@/lib/globalVariabelZustand";
-import FeedControl from "./dashboard/_components/feedControl";
-import { useState } from "react";
+import FeedControl from "../_components/feedControl";
+import { useRef, useState } from "react";
 import FIlterTab from "@/_components/FilterTab";
 
 export default function Home() {
@@ -46,16 +46,39 @@ export default function Home() {
     biaya: allBiaya.data,
   };
 
+  const [judul, setjudul] = useState("");
+  const [tanggal, settanggal] = useState("");
+  const [biaya, setbiaya] = useState("");
+  const [kalangan, setkalangan] = useState("");
+  const [kota, setkota] = useState("");
+  const [kategori, setkategori] = useState("");
+  const [topik, settopik] = useState("");
+  const setSearchValue = {
+    judul: judul,
+    tanggal: { tg: tanggal, fn: (e) => settanggal(e) },
+    biaya: { by: biaya, fn: (e) => setbiaya(e) },
+    kalangan: { kl: kalangan, fn: (e) => setkalangan(e) },
+    kota: { kt: kota, fn: (e) => setkota(e) },
+    kategori: { kat: kategori, fn: (e) => setkategori(e) },
+    topik: { tp: topik, fn: (e) => settopik(e) },
+  };
+
   return (
     <div>
-      <FIlterTab
-        optionData={optionData}
-        isFilter={isFilter}
-        onClick={() => setIsFilter(!isFilter)}
-      />
+      {!optionState && (
+        <FIlterTab
+          optionData={optionData}
+          isFilter={isFilter}
+          onClick={() => setIsFilter(!isFilter)}
+          setSearchValue={setSearchValue}
+        />
+      )}
       <div className="flex flex-col">
         <div className="flex items-center gap-x-1">
-          <Input placeholder="Cari judul agenda" />
+          <Input
+            placeholder="Cari judul agenda"
+            onChange={(e) => setjudul(e.target.value)}
+          />
           <div className="flex items-center gap-x-1">
             <Button
               size={"icon"}
@@ -66,8 +89,13 @@ export default function Home() {
               <Filter />
             </Button>
             <Button
-              onClick={() => setStateMode("search")}
+              onClick={() => {
+                setStateMode("search");
+              }}
               className={"font-bold items-center"}
+              variant={
+                stateMode === "search" ? "default" : "outline" && "outline"
+              }
             >
               <Search />
               Cari
@@ -108,6 +136,7 @@ export default function Home() {
             data={allAgenda.data}
             optionData={optionData}
             router={router}
+            optionSearch={setSearchValue}
           />
         )}
       </div>
