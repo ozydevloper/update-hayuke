@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import login from "@/lib/auth/login";
 
 const TopBar = () => {
   const { setTheme } = useTheme();
@@ -48,7 +49,7 @@ const TopBar = () => {
           <DropdownMenuContent>
             <DropdownMenuLabel>Akun</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Log-in</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => login()}>Log-in</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
