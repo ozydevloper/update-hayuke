@@ -49,9 +49,9 @@ const PelaksanaanOffline = ({ kota, pelaksanaan }) => {
       </div>
       <div className="flex items-start flex-col gap-x-1">
         <span className="font-bold text-primary">Alamat:</span>
-        <Link href={linkVia} className="underline text-primary">
+        <a href={linkVia} className="underline text-primary">
           {viaDetail}
-        </Link>
+        </a>
       </div>
       <div className="w-full justify-center my-5">
         <div className="font-bold text-primary">Note:</div>
@@ -74,12 +74,12 @@ const PelaksanaanOnline = ({ pelaksanaan }) => {
       </div>
       <div className="flex items-start gap-x-1 flex-col y-3">
         <div className="font-bold text-primary">Link:</div>
-        <Link
+        <a
           href={linkVia}
           className="underline text-primary whitespace-pre-wrap"
         >
           {linkVia}
-        </Link>
+        </a>
       </div>
       <div className="flex items-start gap-x-1 my-4">
         <span className="font-bold text-primary">Via Detail:</span>
