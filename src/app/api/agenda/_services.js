@@ -54,7 +54,7 @@ export const AgendaServices = {
         pelaksanaan: editAgenda.pelaksanaan,
         kategoriId: editAgenda.kategori,
         topikId: editAgenda.topik,
-        kotaId: editAgenda.kota == "" ? null : data.kota,
+        kotaId: editAgenda.kota == "" ? null : editAgenda.kota,
         kalanganId: editAgenda.kalangan,
         biayaId: editAgenda.biaya,
       },
