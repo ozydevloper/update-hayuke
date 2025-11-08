@@ -5,7 +5,11 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -49,6 +53,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FieldError } from "@/components/ui/field";
 import { useDeleteAgenda, useNewAgenda } from "@/lib/api/agenda/useAgenda";
 import { toast } from "sonner";
+import FormEdit from "./formEdit";
 const TabelError = ({ refetch }) => {
   return (
     <div className="w-full h-64 max-h-64 flex flex-col items-center justify-center text-center gap-y-1">
@@ -761,6 +766,8 @@ const TabelDashboard = ({
 }) => {
   // const inputDateRef = useRef(null);
   const [isForm, setIsForm] = useState(false);
+  const [isFormEdit, setIsFormEdit] = useState(false);
+  const [dataEdit, setDataEdit] = useState({});
 
   const useMutationDeleteAgenda = useDeleteAgenda();
 
@@ -787,6 +794,19 @@ const TabelDashboard = ({
           allBiaya={allBiaya.data}
           setIsForm={setIsForm}
           isForm={isForm}
+        />
+      )}
+      {stateForm && isFormEdit && (
+        <FormEdit
+          allKategori={allKategori.data}
+          allTopik={allTopik.data}
+          allKota={allKota.data}
+          allKalangan={allKalangan.data}
+          allBiaya={allBiaya.data}
+          setIsForm={setIsFormEdit}
+          isForm={isFormEdit}
+          data={dataEdit}
+          setData={setDataEdit}
         />
       )}
       <div className="font-bold text-sm my-5">Tabel Agenda</div>
@@ -850,7 +870,8 @@ const TabelDashboard = ({
                           <DropdownMenuSeparator />
                           <DropdownMenuItem
                             onClick={() => {
-                              alert(JSON.stringify(row));
+                              setDataEdit(row);
+                              setIsFormEdit(true);
                             }}
                           >
                             Edit

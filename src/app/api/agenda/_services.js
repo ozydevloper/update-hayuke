@@ -39,6 +39,27 @@ export const AgendaServices = {
       },
     });
   },
+  async editAgenda(editAgenda) {
+    return await prisma.agenda.update({
+      where: {
+        id: editAgenda.id,
+      },
+      data: {
+        judul: editAgenda.judul,
+        deskripsi: editAgenda.deskripsi,
+        tanggal: new Date(editAgenda.tanggal),
+        waktu: editAgenda.waktu,
+        pembicara: editAgenda.pembicara,
+        penyelenggara: editAgenda.penyelenggara,
+        pelaksanaan: editAgenda.pelaksanaan,
+        kategoriId: editAgenda.kategori,
+        topikId: editAgenda.topik,
+        kotaId: editAgenda.kota == "" ? null : data.kota,
+        kalanganId: editAgenda.kalangan,
+        biayaId: editAgenda.biaya,
+      },
+    });
+  },
 };
 
 export const AgendaImageRepository = {

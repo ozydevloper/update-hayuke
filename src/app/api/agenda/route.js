@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { AgendaImageRepository, AgendaServices } from "./_services";
 import { verifySignature } from "@/lib/api/signature";
 export async function GET(req) {
-
   const signature = req.headers.get("sig");
   if (!signature || !verifySignature(signature)) {
     return NextResponse.json({ error: "nyari apa nih" }, { status: 401 });
@@ -18,12 +17,10 @@ export async function GET(req) {
 }
 
 export async function DELETE(req = NextRequest) {
-
   const signature = req.headers.get("sig");
   if (!signature || !verifySignature(signature)) {
     return NextResponse.json({ error: "nyari apa nih" }, { status: 401 });
   }
-
 
   try {
     const body = await req.json();
@@ -36,7 +33,6 @@ export async function DELETE(req = NextRequest) {
 }
 
 export async function POST(req = NextRequest) {
-
   const signature = req.headers.get("sig");
   if (!signature || !verifySignature(signature)) {
     return NextResponse.json({ error: "nyari apa nih" }, { status: 401 });
@@ -70,5 +66,21 @@ export async function POST(req = NextRequest) {
     return NextResponse.json({ message: "Success" });
   } catch (err) {
     return NextResponse.json(err);
+  }
+}
+
+export async function PUT(req = NextRequest) {
+  const signature = req.headers.get("sig");
+  if (!signature || !verifySignature(signature)) {
+    return NextResponse.json({ error: "nyari apa nih" }, { status: 401 });
+  }
+
+  try {
+    const body = await req.json();
+    await AgendaServices.editAgenda(body);
+
+    return NextResponse.json({ message: "Success" });
+  } catch (err) {
+    return NextResponse.error(err);
   }
 }
