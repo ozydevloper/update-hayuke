@@ -87,7 +87,7 @@ const FormEdit = ({
           form.handleSubmit();
         }}
       >
-        <Card className={"max-h-max p-3 gap-0 w-md "}>
+        <Card className={"max-h-max p-3 gap-0 w-full md:w-md "}>
           <div className="grid grid-cols-2 gap-x-2 gap-y-2">
             <div className="w-full col-span-2 text-sm font-bold flex justify-between items-center">
               <div>Form Edit</div>
