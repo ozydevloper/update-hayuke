@@ -22,7 +22,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "/home/ozy/Project/HAYUKE/hayuke/generated/prisma",
+      "value": "/home/ozy/LEGACY/update-hayuke/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -36,7 +36,7 @@ const config: runtime.GetPrismaClientConfig = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/ozy/Project/HAYUKE/hayuke/prisma/schema.prisma",
+    "sourceFilePath": "/home/ozy/LEGACY/update-hayuke/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../prisma",
@@ -46,7 +46,7 @@ const config: runtime.GetPrismaClientConfig = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -57,7 +57,7 @@ const config: runtime.GetPrismaClientConfig = {
   },
   "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id            String   @unique @default(uuid())\n  email         String   @unique\n  name          String\n  image         String\n  role          Role     @default(USER)\n  dibuatTanggal DateTime @default(now())\n}\n\nmodel Agenda {\n  id            String    @unique @default(uuid())\n  poster        String[]\n  judul         String?\n  deskripsi     String?\n  tanggal       DateTime?\n  waktu         String?\n  pembicara     String[]\n  penyelenggara String[]\n  kategori      Kategori? @relation(fields: [kategoriId], references: [id])\n  kategoriId    String?\n  topik         Topik?    @relation(fields: [topikId], references: [id])\n  topikId       String?\n  kota          Kota?     @relation(fields: [kotaId], references: [id])\n  kotaId        String?\n  kalangan      Kalangan? @relation(fields: [kalanganId], references: [id])\n  kalanganId    String?\n  biaya         Biaya?    @relation(fields: [biayaId], references: [id])\n  biayaId       String?\n  pelaksanaan   String[]  @default([\"offline\", \"-\", \"-\", \"-\"])\n  dibuatTanggal DateTime  @default(now())\n}\n\nmodel Kategori {\n  id            String   @unique @default(uuid())\n  name          String   @unique\n  daftarAgenda  Agenda[]\n  dibuatTanggal DateTime @default(now())\n}\n\nmodel Topik {\n  id            String   @unique @default(uuid())\n  name          String   @unique\n  daftarAgenda  Agenda[]\n  dibuatTanggal DateTime @default(now())\n}\n\nmodel Kota {\n  id            String   @unique @default(uuid())\n  name          String   @unique\n  daftarAgenda  Agenda[]\n  dibuatTanggal DateTime @default(now())\n}\n\nmodel Kalangan {\n  id            String   @unique @default(uuid())\n  name          String   @unique\n  daftarAgenda  Agenda[]\n  dibuatTanggal DateTime @default(now())\n}\n\nmodel Biaya {\n  id            String   @unique @default(uuid())\n  name          String   @unique\n  daftarAgenda  Agenda[]\n  dibuatTanggal DateTime @default(now())\n}\n\nenum Role {\n  USER\n  ADMIN\n}\n",
   "inlineSchemaHash": "48fd5faf80fbcadf8517d5dbcc7430cba1d097c7db2d671892bc97ba673c204a",
-  "copyEngine": false,
+  "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
     "enums": {},
