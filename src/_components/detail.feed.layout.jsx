@@ -115,14 +115,14 @@ const Detail = ({ data, optionData }) => {
   const waktu = data.waktu;
   const biaya = optionData.biaya.find((biaya) => biaya.id === data.biayaId);
   const kalangan = optionData.kalangan.find(
-    (kalangan) => kalangan.id === data.kalanganId
+    (kalangan) => kalangan.id === data.kalanganId,
   );
   const pembicara = data.pembicara;
   const penyelenggara = data.penyelenggara;
   const pelaksanaan = data.pelaksanaan;
   const kota = optionData.kota.find((kota) => kota.id === data.kotaId);
   const kategori = optionData.kategori.find(
-    (kategori) => kategori.id === data.kategoriId
+    (kategori) => kategori.id === data.kategoriId,
   );
   const topik = optionData.topik.find((topik) => topik.id === data.topikId);
   const poster = data.poster[0];
@@ -232,6 +232,7 @@ const DetailAgenda = ({ params }) => {
   if (params.agenda_id.length !== 2) {
     redirect("/");
   }
+
   const id = params.agenda_id[1];
 
   const agendaHariIni = useQueryAgenda();
@@ -264,7 +265,7 @@ const DetailAgenda = ({ params }) => {
       optionState ? (
         <Skeleton className={`w-full h-dvh`} />
       ) : agendaHariIni.isError ? (
-        <span>Error euys</span>
+        redirect("/")
       ) : (
         agendaHariIni.isSuccess && (
           <Detail
