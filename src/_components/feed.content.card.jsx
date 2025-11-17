@@ -89,9 +89,10 @@ const FeedContentCard = ({ data, optionData, router }) => {
         </div>
         <div className="w-full h-full flex flex-col justify-between active:bg-foreground/10 rounded-sm p-1"
         onClick={() =>   {
-          toast.promise( () => router.push(`/detail/${stateMode}/${id}`), {
+          toast.promise( async () => await router.push(`/detail/${stateMode}/${id}`), {
             loading: "Tunggu sebentar...",
-            success: "Selesai..."
+            success: "Selesai...",
+            error: "Terjadi error..."
           })
         }}
         >
