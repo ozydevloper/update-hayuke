@@ -38,7 +38,7 @@ const FIlterTab = ({ optionData, isFilter, onClick, setSearchValue }) => {
     <div
       id="close"
       className={`${
-        isFilter ? "" : "translate-y-full"
+        isFilter ? "" : "translate-y-full hidden"
       } translate-y-0 w-full h-dvh fixed z-50 inset-0 flex items-end justify-center transition-all ease-in-out duration-500`}
     >
       <Card className="w-full bg-background md:max-w-md mb-5 ring p-3 gap-0">
@@ -158,8 +158,8 @@ const FIlterTab = ({ optionData, isFilter, onClick, setSearchValue }) => {
               </SelectContent>
             </Select>
           </div>
-          <div className="w-full flex flex-col col-span-2">
-            <Button className={"w-full"} onClick={handleReset}>
+          <div className="w-full flex flex-col items-end justify-center row-start-4 col-start-2">
+            <Button onClick={handleReset} className={'bg-red-300 text-red-800'}>
               Reset
             </Button>
           </div>
